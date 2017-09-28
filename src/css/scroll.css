@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.clearfix::after{
+    content: "";
+    clear: both;
+    display: block;
+}
+[text-ellipsis]{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.scroll-list{
+    display: block;
+    height: 150px;
+    border:1px solid #a1a1a1;
+}
+/*ul 类样式*/
+.scroxt-ul{
+
+}
+
+/*水平滚动*/
+.horizontal-right li, .horizontal-left li{
+    float: left;
+    list-style: none;
+}
+.horizontal-left li{
+    margin-right: 10px;
+}
+.horizontal-right li{
+    margin-left: 10px;
+}
+
+/*横向单条滚动*/
+.scroll-box{
+    width: 140px;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 25px;
+    border:1px solid blue;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
