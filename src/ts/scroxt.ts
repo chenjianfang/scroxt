@@ -12,13 +12,6 @@ import Horizontal from "./horizontal";
  *
  * 例子
  *
- * new Vertical({
- *     gun: ".scroll-ele",
- *     clip: [".horizontal", ".clearfix"],
- *     bullets: ["<li>第一条</li>", "<li>第二条</li>", "<li>第三条</li>"],
- *     distance: -0.5
- * })
- * 生成一个垂直滚动的字幕
  * 
  */
 import Vertical from "./vertical";
