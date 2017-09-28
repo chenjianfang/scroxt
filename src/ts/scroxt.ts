@@ -3,13 +3,6 @@
  *
  * 例子
  *
- * new Horizontal({
- *     gun: ".scroll-ele",
- *     clip: [".horizontal", ".clearfix"],
- *     bullets: ["<li>第一条</li>", "<li>第二条</li>", "<li>第三条</li>"],
- *     distance: -0.5
- * },10)
- * 生成一个水平滚动的字幕
  * 
  */
 import Horizontal from "./horizontal";
