@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../src/css/scroll.css">
+</head>
+<body>
+
+<!-- 弹幕 -->
+<div class="scroll-box-barrage">
+    <div class="scroxt-video-barrage">
+        <!-- <video class="scroxt-video" src="../lib/game.mp4"></video> -->
+        <video id="my-video" preload="auto" width="640" height="auto">
+          <source src="http://113.96.155.116/6573BF00772397166084338C6/03000A020059E593D25AE7315660057B45DF00-343F-9525-EF8E-412F1E03A212.mp4?ali_redirect_domain=vali-dns.cp31.ott.cibntv.net&ccode=0502&duration=393&expire=18000&psid=c779d40a1a49262cd77c31d0d041d718&ups_client_netip=116.24.66.40&ups_ts=1508400199&ups_userid=&utid=gMwiEpj0Z18CAbcPs6UfzZCg&vid=XMzA5MDk5OTcxMg%3D%3D&vkey=A33b64edb93d06b78a4a411a1c72422c5" type='video/mp4'>
+        </video>
+    </div>
+</div>
+
+<script src="../dist/js/scroxt.js"></script>
+<script>
+    var dataFont = ["我","你","来","好","是","哦","吧","爱","","去","哪"];
+    var len = dataFont.length;
+    var maxTime = 10;
+    var dataTime = [];
+
+    for(var i = 0; i < 10; i++){
+        var ll = ~~(Math.random()*len);
+        var str = "";
+        for(var j = 0; j < ll; j++){
+            var jL = ~~(Math.random()*len);
+            str += dataFont.slice(jL,jL+1)[0];
+        }
+        var time = ~~(Math.random()*maxTime);
+        dataTime.push({
+            data:str,
+            time:time
+        });
+    }
+    console.log(dataTime);
+    new scroxt.Barrage({
+        video: "#my-video",
+        dataTime: dataTime
+    });
+</script>
+</body>
+</html>
