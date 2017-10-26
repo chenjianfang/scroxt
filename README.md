@@ -29,10 +29,9 @@ new scroxt.Horizontal({
 
 ```
 参数：
-
-	- target：水平滚动字体的容器css选择器
-	- data：字体数组
-	- speed: 滚动速度，单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10
+- target：水平滚动字体的容器css选择器
+- data：字体数组
+- speed: 滚动速度，单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10
 
 #### 垂直滚动
 
@@ -46,10 +45,9 @@ new scroxt.Vertical({
 ```
 
 参数：
-
-	- target：垂直滚动字体的容器css选择器
-	- data：字体数组
-	- speed: 滚动速度，speed的大小范围为 1-10。单位帧移动的距离= speed * 0.1。
+- target：垂直滚动字体的容器css选择器
+- data：字体数组
+- speed: 滚动速度，speed的大小范围为 1-10。单位帧移动的距离= speed * 0.1。
 
 
 #### 视频弹幕
