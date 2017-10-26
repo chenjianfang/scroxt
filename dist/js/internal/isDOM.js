@@ -60,90 +60,29 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 3:
+/******/ ([
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = isDOM;
 /**
- * class root
- * @param {string} target: 插入滚动弹幕的元素
- * @param {Array<string>} data: 弹幕内容
- * @param {number} speed: 弹幕移动的速度  取值[1-10]
- * @returns voild
+ * @param {Element} ele:判断元素
+ * @returns {Boolean} true:是元素节点，false:不是
  * @example
  *
- * class initital extend root
- *         or
- * new root({
- *     target:"body",
- *     data: ["第一条","第二条","第三条"],
- *     speed:-5
- * })
- *
+ * isDOM(document.body)
  */
-var root = /** @class */ (function () {
-    function root(_a) {
-        var target = _a.target, data = _a.data, speed = _a.speed;
-        /**
-         * [options 构造函数参数]
-         * @type {Options}
-         */
-        this.options = {
-            target: "",
-            data: [],
-            speed: 5
-        };
-        this.extendOpt(arguments[0]);
-        this.targetElement = document.querySelector(this.options.target);
+function isDOM(ele) {
+    if (ele && ele.nodeType) {
+        return ele.nodeType === 1;
     }
-    /**
-     * @param {Object} 构造函数参数赋值
-     */
-    root.prototype.extendOpt = function (opt) {
-        var that = this;
-        for (var key in opt) {
-            if (opt.hasOwnProperty(key)) {
-                that.options[key] = opt[key];
-            }
-        }
-    };
-    /**
-     * [createElement 生成滚动元素]
-     * @param {string = ""} className [滚动元素类名]
-     * @return {Array<HTMLElement>} divBox [滚动元素数组]
-     */
-    root.prototype.createElement = function (className) {
-        if (className === void 0) { className = ""; }
-        // const scope = ~~(Math.random()*100) + (+new Date());
-        var target = this.targetElement;
-        var divBox = [];
-        var divWrapElement = document.querySelector(".scroxt-wrapper");
-        if (!divWrapElement) {
-            divWrapElement = document.createElement('div');
-            divWrapElement.className = "scroxt-wrapper";
-            target.appendChild(divWrapElement);
-        }
-        for (var i = 0, len = this.options.data.length; i < len; i++) {
-            var div = document.createElement('div');
-            div.className = className;
-            var text = document.createTextNode(this.options.data[i]);
-            div.appendChild(text);
-            divWrapElement.appendChild(div);
-            divBox.push(div);
-        }
-        return divBox;
-    };
-    return root;
-}());
-/* harmony default export */ __webpack_exports__["default"] = (root);
+}
 
 
 /***/ })
-
-/******/ });
+/******/ ]);

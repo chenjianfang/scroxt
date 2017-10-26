@@ -1,13 +1,19 @@
+import isDOM from './isDOM';
+
 /**
- * @param {string} css selector
+ * @param {any} css selector
  * @param {string} element attribute
  * @returns {string} attribute value
  * @example 
  *
  * getEleAttr(".container","width") // => "200px"
- * getEleAttr(".container","cssFloat") // => "left"
+ * getEleAttr(document.body,"height") // => "left"
  * 
  */
 export default function getEleAttr(ele,attr){
-    return window.getComputedStyle(<HTMLElement>document.querySelector(ele),null).getPropertyValue(attr);
+	if(isDOM(ele)){
+    	return window.getComputedStyle(ele,null).getPropertyValue(attr);
+	}else if(typeof ele === 'string' && document.querySelector(ele)){
+    	return window.getComputedStyle(<HTMLElement>document.querySelector(ele),null).getPropertyValue(attr);
+	}
 }

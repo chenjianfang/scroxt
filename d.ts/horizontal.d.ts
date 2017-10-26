@@ -4,19 +4,58 @@ import root from './root';
  * @returns voild
  */
 declare class Horizontal extends root {
-    targetWidth: any;
-    targetLeft: number;
-    targetRight: number;
-    scroxtLiGap: number;
-    constructor(opt: any, scroxtLiGap?: number);
+    /**
+     * [sumWidth 水平滚动元素总宽度]
+     * @type {number}
+     */
     sumWidth: number;
-    arrange(): void;
-    startRun(): void;
-    STRun(): void;
-    copyscroxtUlEle(): void;
-    addHorizontalStyle(): void;
+    /**
+     * [scroxtGap 水平滚动元素的间隔]
+     * @type {number}
+     */
+    scroxtGap: number;
+    /**
+     * [distance 移动的距离]
+     * @type {number}
+     */
     distance: number;
-    scroxtUlHalfPosition: number;
+    /**
+     * [targetWidth target宽度]
+     * @type {number}
+     */
+    private targetWidth;
+    /**
+     * [divWrapElementWidth 元素总宽度]
+     * @type {number}
+     */
+    private divWrapElementWidth;
+    /**
+     * [targetElementBorderWidth target border width]
+     * @type {number}
+     */
+    private targetElementBorderWidth;
+    constructor(opt: any);
+    /**
+     * [init 入口]
+     */
+    init(): void;
+    /**
+     * [createHorizontal 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:水平滚动元素集
+     */
+    createHorizontal(): HTMLElement;
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    computeWidth(ElementArr: any): number;
+    /**
+     * [STRun 定时运行]
+     */
+    STRun(): void;
+    /**
+     * [STMove 单位帧移动]
+     */
     STMove(): void;
 }
 export default Horizontal;

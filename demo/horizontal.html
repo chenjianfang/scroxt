@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../src/css/scroxt.css">
+    <style>
+        .my-ele{
+            width: 100px;
+            height: 100px;
+            margin-top:50px;
+            margin-left: 50px;
+            font-size: 16px;
+            border: 1px solid;
+            overflow: hidden;
+        }
+        .scroxt-wrapper{
+            margin-left: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 滚动 -->
+<div class="my-ele">
+    
+</div>
+<script src="../dist/js/scroxt.js"></script>
+<script>
+    
+    new scroxt.Horizontal({
+        target: ".my-ele",
+        data: ['第一条','第2条','第3条'],
+        speed: -5
+    });
+</script>
+</body>
+</html>

@@ -55,6 +55,11 @@ declare class Barrage extends Event {
      */
     private MAX_LINE;
     /**
+     * [MAX_NUM 屏幕最大弹幕数量]
+     * @type {number}
+     */
+    private MAX_NUM;
+    /**
      * [lineHeight 一行弹幕的高度]
      * @type {number}
      */

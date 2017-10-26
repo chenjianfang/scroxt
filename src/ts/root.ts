@@ -1,53 +1,52 @@
 /**
  * class root
- * 
- * @param {Object} 
- *      @param {string} target:装载容器的css选择器 例如："div.horizontal-right"
- *      @param {string[]} scroxtLi:滚动元素内容 例如：["<li>第一条</li>", "<li>第二条</li>", "<li>第三条</li>"]
- *      @param {number} distance:定时器移动的单位距离 例如：-0.5|0.5
- * @returns {null}
+ * @param {string} target: 插入滚动弹幕的元素
+ * @param {Array<string>} data: 弹幕内容
+ * @param {number} speed: 弹幕移动的速度  取值[1-10]
+ * @returns voild
  * @example
  *
- * class Horizontal extends root {}     
+ * class initital extend root
+ *         or
+ * new root({
+ *     target:"body",
+ *     data: ["第一条","第二条","第三条"],
+ *     speed:-5
+ * })
  * 
  */
+
+export interface Options {
+    target:string
+    data:string[]
+    speed: number
+}
 
 class root{
 
     /**
-     * [scroxtUl 初始化ul的类名]
-     * @type {string} 
-     * @example
-     *
-     * ".scroxt-ul .clearfix"
-     */
-    protected scroxtUl:string
-
-    /**
-     * [scroxtUlEle ul元素原生对象]
-     * @type {[type]}
-     */
-    protected scroxtUlEle
-
-    /**
      * [options 构造函数参数]
-     * @type {Object}
+     * @type {Options} 
      */
-    protected options = {
+    protected options: Options = {
         target:"",
-        scroxtLi:[],
-        distance: 0
+        data:[],
+        speed: 5
     }
 
+    /**
+     * [targetElement 目标元素]
+     * @type {HTMLElement}
+     */
+    protected targetElement:HTMLElement;
 
-    constructor({target,scroxtLi,distance}:{
+    constructor({target,data,speed}:{
         target:string,
-        scroxtLi:string[],
-        distance: number
+        data:string[],
+        speed: number
     }){
         this.extendOpt(arguments[0]);
-        this.scroxtUl = ".scroxt-ul .clearfix";
-        this.createELe();
+        this.targetElement = <HTMLElement>document.querySelector(this.options.target);
     }
 
     /**
@@ -55,29 +54,39 @@ class root{
      */
     extendOpt(opt){
         const that = this;
-        for(var key in opt){
+        for(const key in opt){
             if(opt.hasOwnProperty(key)){
                 that.options[key] = opt[key];
             }
         }
     }
-    
-    /**
-     * 生成滚动元素内容 <ul class=[scroxtUl]>[scroxtLi.join("")]</ul>
-     */
-    createELe(){
-        const that = this;
-        const ulScope = ~~(Math.random()*100) + (new Date()).getTime();
-        let str = `<ul class="${that.scroxtUl.replace(/\./g,'')}" date-scroxt="${ulScope}">`;
-        str += this.createContent();
-        str += "</ul>";
-        const target = <HTMLElement>document.querySelector(this.options.target);
-        target.innerHTML = str;
-        this.scroxtUlEle = <HTMLElement>document.querySelector(`[date-scroxt="${ulScope}"]`);
-    }
 
-    createContent(){
-        return this.options.scroxtLi.join("");
+    /**
+     * [createElement 生成滚动元素]
+     * @param {string = ""} className [滚动元素类名]
+     * @return {Array<HTMLElement>} divBox [滚动元素数组]
+     */
+    createElement(className:string = ""){
+
+        // const scope = ~~(Math.random()*100) + (+new Date());
+        const target = this.targetElement;
+        const divBox:HTMLElement[] = [];
+        let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
+        
+        if(!divWrapElement){
+            divWrapElement = document.createElement('div');
+            divWrapElement.className = "scroxt-wrapper";
+            target.appendChild(divWrapElement);
+        }
+        for(let i = 0, len = this.options.data.length; i < len; i++){
+            const div = document.createElement('div');
+            div.className = className;
+            const text = document.createTextNode(this.options.data[i]);
+            div.appendChild(text);
+            divWrapElement.appendChild(div)
+            divBox.push(div);
+        }
+        return divBox;
     }
 
 }

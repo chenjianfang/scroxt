@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -96,34 +96,68 @@ var setTimeTask = (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = getEleAttr;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(9);
+
 /**
- * class root
- *
- * @param {Object}
- *      @param {string} target:装载容器的css选择器 例如："div.horizontal-right"
- *      @param {string[]} scroxtLi:滚动元素内容 例如：["<li>第一条</li>", "<li>第二条</li>", "<li>第三条</li>"]
- *      @param {number} distance:定时器移动的单位距离 例如：-0.5|0.5
- * @returns {null}
+ * @param {any} css selector
+ * @param {string} element attribute
+ * @returns {string} attribute value
  * @example
  *
- * class Horizontal extends root {}
+ * getEleAttr(".container","width") // => "200px"
+ * getEleAttr(document.body,"height") // => "left"
+ *
+ */
+function getEleAttr(ele, attr) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["default"])(ele)) {
+        return window.getComputedStyle(ele, null).getPropertyValue(attr);
+    }
+    else if (typeof ele === 'string' && document.querySelector(ele)) {
+        return window.getComputedStyle(document.querySelector(ele), null).getPropertyValue(attr);
+    }
+}
+
+
+/***/ }),
+/* 2 */,
+/* 3 */,
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/**
+ * class root
+ * @param {string} target: 插入滚动弹幕的元素
+ * @param {Array<string>} data: 弹幕内容
+ * @param {number} speed: 弹幕移动的速度  取值[1-10]
+ * @returns voild
+ * @example
+ *
+ * class initital extend root
+ *         or
+ * new root({
+ *     target:"body",
+ *     data: ["第一条","第二条","第三条"],
+ *     speed:-5
+ * })
  *
  */
 var root = /** @class */ (function () {
     function root(_a) {
-        var target = _a.target, scroxtLi = _a.scroxtLi, distance = _a.distance;
+        var target = _a.target, data = _a.data, speed = _a.speed;
         /**
          * [options 构造函数参数]
-         * @type {Object}
+         * @type {Options}
          */
         this.options = {
             target: "",
-            scroxtLi: [],
-            distance: 0
+            data: [],
+            speed: 5
         };
         this.extendOpt(arguments[0]);
-        this.scroxtUl = ".scroxt-ul .clearfix";
-        this.createELe();
+        this.targetElement = document.querySelector(this.options.target);
     }
     /**
      * @param {Object} 构造函数参数赋值
@@ -137,20 +171,30 @@ var root = /** @class */ (function () {
         }
     };
     /**
-     * 生成滚动元素内容 <ul class=[scroxtUl]>[scroxtLi.join("")]</ul>
+     * [createElement 生成滚动元素]
+     * @param {string = ""} className [滚动元素类名]
+     * @return {Array<HTMLElement>} divBox [滚动元素数组]
      */
-    root.prototype.createELe = function () {
-        var that = this;
-        var ulScope = ~~(Math.random() * 100) + (new Date()).getTime();
-        var str = "<ul class=\"" + that.scroxtUl.replace(/\./g, '') + "\" date-scroxt=\"" + ulScope + "\">";
-        str += this.createContent();
-        str += "</ul>";
-        var target = document.querySelector(this.options.target);
-        target.innerHTML = str;
-        this.scroxtUlEle = document.querySelector("[date-scroxt=\"" + ulScope + "\"]");
-    };
-    root.prototype.createContent = function () {
-        return this.options.scroxtLi.join("");
+    root.prototype.createElement = function (className) {
+        if (className === void 0) { className = ""; }
+        // const scope = ~~(Math.random()*100) + (+new Date());
+        var target = this.targetElement;
+        var divBox = [];
+        var divWrapElement = document.querySelector(".scroxt-wrapper");
+        if (!divWrapElement) {
+            divWrapElement = document.createElement('div');
+            divWrapElement.className = "scroxt-wrapper";
+            target.appendChild(divWrapElement);
+        }
+        for (var i = 0, len = this.options.data.length; i < len; i++) {
+            var div = document.createElement('div');
+            div.className = className;
+            var text = document.createTextNode(this.options.data[i]);
+            div.appendChild(text);
+            divWrapElement.appendChild(div);
+            divBox.push(div);
+        }
+        return divBox;
     };
     return root;
 }());
@@ -158,18 +202,71 @@ var root = /** @class */ (function () {
 
 
 /***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(1);
+/* harmony export (immutable) */ __webpack_exports__["default"] = removeElement;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(9);
+
+/**
+ * @param {Element} ele:删除的元素的css选择器
+ * @example
+ *
+ * removeElement(".content")
+ 
+ * removeElement("[data-id='2014']")
+ */
+function removeElement(ele) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["default"])(ele)) {
+        ele.parentNode.removeChild(ele);
+    }
+    else if (typeof ele === 'string' && document.querySelector(ele)) {
+        var element = document.querySelector(ele);
+        element.parentNode.removeChild(element);
+    }
+    else {
+        console.error("参数错误");
+    }
+}
+
+
+/***/ }),
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = isDOM;
+/**
+ * @param {Element} ele:判断元素
+ * @returns {Boolean} true:是元素节点，false:不是
+ * @example
+ *
+ * isDOM(document.body)
+ */
+function isDOM(ele) {
+    if (ele && ele.nodeType) {
+        return ele.nodeType === 1;
+    }
+}
+
+
+/***/ }),
+/* 10 */,
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -182,59 +279,90 @@ var __extends = (this && this.__extends) || (function () {
 })();
 
 
-/**
- * 垂直滚动
- *
- * 例子
- *
 
- * 生成一个垂直滚动的字幕
- *
+
+/**
+ * class Vertical   垂直滚动
+ * @returns voild
  */
 var Vertical = /** @class */ (function (_super) {
     __extends(Vertical, _super);
     function Vertical(opt) {
         var _this = _super.call(this, opt) || this;
+        /**
+         * [targetHeight target高度]
+         * @type {number}
+         */
+        _this.targetHeight = 0;
+        /**
+         * [divWrapElementHeight 元素总宽度]
+         * @type {number}
+         */
+        _this.divWrapElementHeight = 0;
+        /**
+         * [distance 移动的距离]
+         * @type {number}
+         */
         _this.distance = 0;
-        _this.copyLock = false;
-        _this.targetHeight = +window.getComputedStyle(document.querySelector(opt.target), null).getPropertyValue("height").replace("px", "");
+        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.targetElement, 'height'));
         _this.startRun();
         return _this;
     }
     Vertical.prototype.startRun = function () {
-        this.sumHeight = +window.getComputedStyle(this.scroxtUlEle).getPropertyValue("height").replace("px", "");
+        this.divWrapElementHeight = this.createVertical();
         this.STRun();
     };
+    /**
+     * [createVertical 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
+     */
+    Vertical.prototype.createVertical = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["default"])(".scroxt-wrapper");
+        var verticalArr1 = this.createElement("scroxt-vertical");
+        var verticalArr2 = this.createElement("scroxt-vertical");
+        this.divWrapElement = document.querySelector(".scroxt-wrapper");
+        var divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
+        return divWrapElementHeight;
+    };
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    Vertical.prototype.computeHeight = function (ElementArr) {
+        var height = 0;
+        for (var i = 0, len = ElementArr.length; i < len; i++) {
+            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(ElementArr[i], "height").replace("px", "")));
+        }
+        return height;
+    };
+    /**
+     * [STRun 定时器]
+     */
     Vertical.prototype.STRun = function () {
         this.STMove();
-        if (this.sumHeight < this.targetHeight)
-            return;
         Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["default"])(function () {
             this.STRun();
         }.bind(this));
     };
-    Vertical.prototype.copyscroxtUlEle = function () {
-        this.scroxtUlEle.innerHTML += this.scroxtUlEle.innerHTML;
-    };
+    /**
+     * [STMove 一帧移动]
+     */
     Vertical.prototype.STMove = function () {
-        this.distance += this.options.distance;
-        if (this.options.distance < 0) {
-            if (this.distance <= -this.sumHeight || !this.copyLock) {
-                _super.prototype.createELe.call(this);
-                this.copyscroxtUlEle();
+        if (this.options.speed < 0) {
+            if (this.distance <= -this.divWrapElementHeight / 2) {
+                this.createVertical();
                 this.distance = 0;
-                this.copyLock = true;
             }
         }
         else {
-            if (this.distance >= 0) {
-                _super.prototype.createELe.call(this);
-                this.copyscroxtUlEle();
-                this.distance = -this.sumHeight;
+            if (this.distance >= this.targetHeight - this.divWrapElementHeight / 2) {
+                this.createVertical();
+                this.distance = this.targetHeight - this.divWrapElementHeight;
             }
         }
-        this.scroxtUlEle.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
-        this.scroxtUlEle.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.divWrapElement.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.distance += this.options.speed * 0.1;
     };
     return Vertical;
 }(__WEBPACK_IMPORTED_MODULE_0__root__["default"]));

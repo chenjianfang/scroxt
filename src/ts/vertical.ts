@@ -1,63 +1,104 @@
 import root from './root';
 import setTimeTask from './internal/setTimeTask';
 import clearTimeTask from './internal/clearTimeTask';
+import getEleAttr from './internal/getEleAttr';
+import removeElement from './internal/removeElement';
 
 /**
- * 垂直滚动
- *
- * 例子
- *
-
- * 生成一个垂直滚动的字幕
- * 
+ * class Vertical   垂直滚动
+ * @returns voild
  */
-
-
 class Vertical extends root{
-    targetHeight
+	/**
+	 * [targetHeight target高度]
+	 * @type {number}
+	 */
+    private targetHeight:number = 0;
+
+    /**
+     * [divWrapElement 滚动元素集]
+     * @type {HTMLElement}
+     */
+    private divWrapElement:HTMLElement;
+
+    /**
+     * [divWrapElementHeight 元素总宽度]
+     * @type {number}
+     */
+    private divWrapElementHeight:number = 0;
+
+    /**
+     * [distance 移动的距离]
+     * @type {number}
+     */
+    private distance:number = 0
+
     constructor(opt){
         super(opt);
-        this.targetHeight = +window.getComputedStyle(<HTMLElement>document.querySelector(opt.target),null).getPropertyValue("height").replace("px","");
+        this.targetHeight = parseFloat(getEleAttr(this.targetElement,'height'));
         this.startRun();
     }
 
-    sumHeight
     startRun(){
-        this.sumHeight = +window.getComputedStyle(this.scroxtUlEle).getPropertyValue("height").replace("px","");
+    	this.divWrapElementHeight = this.createVertical();
         this.STRun();
     }
+
+    /**
+     * [createVertical 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:垂直滚动元素集 
+     */
+    createVertical(){
+        removeElement(".scroxt-wrapper");
+        const verticalArr1 = this.createElement("scroxt-vertical");
+        const verticalArr2 = this.createElement("scroxt-vertical");
+        this.divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
+        const divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
+        return divWrapElementHeight;
+    }
+
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    computeHeight(ElementArr){
+        let height = 0;
+        for(let i = 0, len = ElementArr.length; i < len; i++){
+            height += Math.ceil(+(getEleAttr(ElementArr[i],"height").replace("px","")));
+        }
+        return height;
+    }
+
+    /**
+     * [STRun 定时器]
+     */
     STRun(){
         this.STMove();
-        if(this.sumHeight < this.targetHeight) return;
         setTimeTask(function(){
             this.STRun();
         }.bind(this));
     }
-    copyscroxtUlEle(){
-        this.scroxtUlEle.innerHTML += this.scroxtUlEle.innerHTML;
-    }
-    distance:number = 0
-    copyLock = false
+    
+    /**
+     * [STMove 一帧移动]
+     */
     STMove(){
-        this.distance += this.options.distance;
-        if(this.options.distance < 0){
-            if(this.distance <= -this.sumHeight || !this.copyLock){
-                super.createELe();
-                this.copyscroxtUlEle();
+        if(this.options.speed < 0){
+            if(this.distance <= -this.divWrapElementHeight/2){
+                this.createVertical();
                 this.distance = 0;
-                this.copyLock = true;
             }
         }else{
-            if(this.distance >= 0){
-                super.createELe();
-                this.copyscroxtUlEle();
-                this.distance = -this.sumHeight;
+            if(this.distance >= this.targetHeight - this.divWrapElementHeight/2){
+                this.createVertical();
+                this.distance = this.targetHeight - this.divWrapElementHeight;
             }
         }
 
-        this.scroxtUlEle.style.transform = `translate3d(0px, ${this.distance}px, 0px)`;
-        this.scroxtUlEle.style.webkitTransform = `translate3d(0px, ${this.distance}px, 0px)`;
+        this.divWrapElement.style.transform = `translate3d(0px, ${this.distance}px, 0px)`;
+        this.divWrapElement.style.webkitTransform = `translate3d(0px, ${this.distance}px, 0px)`;
         
+        this.distance += this.options.speed * 0.1;
     }
 }
 

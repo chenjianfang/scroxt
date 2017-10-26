@@ -60,11 +60,32 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = isDOM;
+/**
+ * @param {Element} ele:判断元素
+ * @returns {Boolean} true:是元素节点，false:不是
+ * @example
+ *
+ * isDOM(document.body)
+ */
+function isDOM(ele) {
+    if (ele && ele.nodeType) {
+        return ele.nodeType === 1;
+    }
+}
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91,8 +112,38 @@ var setTimeTask = (function () {
 
 
 /***/ }),
-/* 1 */,
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = getEleAttr;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(0);
+
+/**
+ * @param {any} css selector
+ * @param {string} element attribute
+ * @returns {string} attribute value
+ * @example
+ *
+ * getEleAttr(".container","width") // => "200px"
+ * getEleAttr(document.body,"height") // => "left"
+ *
+ */
+function getEleAttr(ele, attr) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["default"])(ele)) {
+        return window.getComputedStyle(ele, null).getPropertyValue(attr);
+    }
+    else if (typeof ele === 'string' && document.querySelector(ele)) {
+        return window.getComputedStyle(document.querySelector(ele), null).getPropertyValue(attr);
+    }
+}
+
+
+/***/ }),
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113,29 +164,7 @@ var clearTimeTask = (function () {
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = getEleAttr;
-/**
- * @param {string} css selector
- * @param {string} element attribute
- * @returns {string} attribute value
- * @example
- *
- * getEleAttr(".container","width") // => "200px"
- * getEleAttr(".container","cssFloat") // => "left"
- *
- */
-function getEleAttr(ele, attr) {
-    return window.getComputedStyle(document.querySelector(ele), null).getPropertyValue(attr);
-}
-
-
-/***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -199,15 +228,15 @@ var Event = /** @class */ (function () {
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(6);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -274,6 +303,7 @@ var Barrage = /** @class */ (function (_super) {
         _this.lineHeight = 28;
         _this.videoWidth = parseInt(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.video, "width"));
         _this.MAX_LINE = ~~(parseInt(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.video, "height")) / _this.lineHeight);
+        _this.MAX_NUM = 50;
         _this.distance = -5;
         _this.colorFont = ['#ffff38', '#c80115', '#189add'];
         _this.startRun();
@@ -389,7 +419,7 @@ var Barrage = /** @class */ (function (_super) {
      */
     Barrage.prototype.createBarrage = function () {
         var len = this.readyShowBarrage.length;
-        if (!len || this.barrageWrap.length > 50)
+        if (!len || this.barrageWrap.length > this.MAX_NUM)
             return;
         for (var i = 0; i < len; i++) {
             if (i > this.MAX_LINE) {

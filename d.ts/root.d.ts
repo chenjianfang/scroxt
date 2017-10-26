@@ -1,52 +1,50 @@
 /**
  * class root
- *
- * @param {Object}
- *      @param {string} target:装载容器的css选择器 例如："div.horizontal-right"
- *      @param {string[]} scroxtLi:滚动元素内容 例如：["<li>第一条</li>", "<li>第二条</li>", "<li>第三条</li>"]
- *      @param {number} distance:定时器移动的单位距离 例如：-0.5|0.5
- * @returns {null}
+ * @param {string} target: 插入滚动弹幕的元素
+ * @param {Array<string>} data: 弹幕内容
+ * @param {number} speed: 弹幕移动的速度  取值[1-10]
+ * @returns voild
  * @example
  *
- * class Horizontal extends root {}
+ * class initital extend root
+ *         or
+ * new root({
+ *     target:"body",
+ *     data: ["第一条","第二条","第三条"],
+ *     speed:-5
+ * })
  *
  */
+export interface Options {
+    target: string;
+    data: string[];
+    speed: number;
+}
 declare class root {
     /**
-     * [scroxtUl 初始化ul的类名]
-     * @type {string}
-     * @example
-     *
-     * ".scroxt-ul .clearfix"
-     */
-    protected scroxtUl: string;
-    /**
-     * [scroxtUlEle ul元素原生对象]
-     * @type {[type]}
-     */
-    protected scroxtUlEle: any;
-    /**
      * [options 构造函数参数]
-     * @type {Object}
+     * @type {Options}
      */
-    protected options: {
+    protected options: Options;
+    /**
+     * [targetElement 目标元素]
+     * @type {HTMLElement}
+     */
+    protected targetElement: HTMLElement;
+    constructor({target, data, speed}: {
         target: string;
-        scroxtLi: any[];
-        distance: number;
-    };
-    constructor({target, scroxtLi, distance}: {
-        target: string;
-        scroxtLi: string[];
-        distance: number;
+        data: string[];
+        speed: number;
     });
     /**
      * @param {Object} 构造函数参数赋值
      */
     extendOpt(opt: any): void;
     /**
-     * 生成滚动元素内容 <ul class=[scroxtUl]>[scroxtLi.join("")]</ul>
+     * [createElement 生成滚动元素]
+     * @param {string = ""} className [滚动元素类名]
+     * @return {Array<HTMLElement>} divBox [滚动元素数组]
      */
-    createELe(): void;
-    createContent(): string;
+    createElement(className?: string): HTMLElement[];
 }
 export default root;

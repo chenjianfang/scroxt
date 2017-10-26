@@ -77,6 +77,12 @@ class Barrage extends Event{
     private MAX_LINE:number;
 
     /**
+     * [MAX_NUM 屏幕最大弹幕数量]
+     * @type {number}
+     */
+    private MAX_NUM:number;
+
+    /**
      * [lineHeight 一行弹幕的高度]
      * @type {number}
      */
@@ -117,6 +123,7 @@ class Barrage extends Event{
         this.lineHeight = 28;
         this.videoWidth = parseInt(getEleAttr(this.video,"width"));
         this.MAX_LINE = ~~(parseInt(getEleAttr(this.video,"height")) / this.lineHeight);
+        this.MAX_NUM = 50;
         this.distance = -5;
         this.colorFont = ['#ffff38','#c80115','#189add'];
         this.startRun();
@@ -209,7 +216,6 @@ class Barrage extends Event{
             this.scroxtVideo.pause();
             this.intervalStop();
         }
-        
     }
 
     /**
@@ -244,7 +250,7 @@ class Barrage extends Event{
      */
     createBarrage(){
         const len = this.readyShowBarrage.length;
-        if(!len || this.barrageWrap.length > 50) return;
+        if(!len || this.barrageWrap.length > this.MAX_NUM) return;
 
         for(let i = 0; i < len; i++){
             if(i>this.MAX_LINE){

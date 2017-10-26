@@ -1,22 +1,48 @@
 import root from './root';
 /**
- * 垂直滚动
- *
- * 例子
- *
-
- * 生成一个垂直滚动的字幕
- *
+ * class Vertical   垂直滚动
+ * @returns voild
  */
 declare class Vertical extends root {
-    targetHeight: any;
+    /**
+     * [targetHeight target高度]
+     * @type {number}
+     */
+    private targetHeight;
+    /**
+     * [divWrapElement 滚动元素集]
+     * @type {HTMLElement}
+     */
+    private divWrapElement;
+    /**
+     * [divWrapElementHeight 元素总宽度]
+     * @type {number}
+     */
+    private divWrapElementHeight;
+    /**
+     * [distance 移动的距离]
+     * @type {number}
+     */
+    private distance;
     constructor(opt: any);
-    sumHeight: any;
     startRun(): void;
+    /**
+     * [createVertical 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
+     */
+    createVertical(): number;
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    computeHeight(ElementArr: any): number;
+    /**
+     * [STRun 定时器]
+     */
     STRun(): void;
-    copyscroxtUlEle(): void;
-    distance: number;
-    copyLock: boolean;
+    /**
+     * [STMove 一帧移动]
+     */
     STMove(): void;
 }
 export default Vertical;
