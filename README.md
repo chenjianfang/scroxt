@@ -28,7 +28,7 @@ new scroxt.Horizontal({
 });
 
 ```
-参数的意思：
+*参数：
 	* target：水平滚动字体的容器css选择器
 	* data：字体数组
 	* speed: 滚动速度，单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10
@@ -44,7 +44,7 @@ new scroxt.Vertical({
 
 ```
 
-参数的意思：
+*参数：
 	* target：垂直滚动字体的容器css选择器
 	* data：字体数组
 	* speed: 滚动速度，speed的大小范围为 1-10。单位帧移动的距离= speed * 0.1。
@@ -82,7 +82,7 @@ new scroxt.Vertical({
 
 ```
 
-参数的意思：
+*参数：
 	* video：视频标签的css选择器
 	* dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间(video播放的时间)
 
