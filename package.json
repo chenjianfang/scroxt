@@ -1,7 +1,9 @@
 {
-  "name": "build",
+  "name": "scroxt.js",
   "version": "1.0.0",
-  "description": "",
+  "description": "scroxt.js用于快速生成滚动文本，性能优异。单行水平滚动，垂直滚动，视频弹幕",
+  "homepage": "https://github.com/chenjianfang/scroxt",
+  "keywords": ["barrage","horizontal","vertical","scroxt"],
   "main": "webpack.config.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack --progress --colors",
@@ -47,5 +49,17 @@
     "express": "^4.15.4",
     "lodash": "^4.17.4",
     "vue": "^2.4.2"
-  }
+  },
+  "maintainers":[
+    {
+      "name": "陈建芳",
+      "mail": "1737752975@qq.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/chenjianfang/scroxt"
+    }
+  ]
 }

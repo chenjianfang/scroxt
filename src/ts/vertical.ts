@@ -3,6 +3,7 @@ import setTimeTask from './internal/setTimeTask';
 import clearTimeTask from './internal/clearTimeTask';
 import getEleAttr from './internal/getEleAttr';
 import removeElement from './internal/removeElement';
+import addStyleCSS from './internal/addStyleCSS';
 
 /**
  * class Vertical   垂直滚动
@@ -36,7 +37,17 @@ class Vertical extends root{
     constructor(opt){
         super(opt);
         this.targetHeight = parseFloat(getEleAttr(this.targetElement,'height'));
+        this.createStyle();
         this.startRun();
+    }
+
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    createStyle(){
+    	addStyleCSS(`
+    		
+    	`);
     }
 
     startRun(){

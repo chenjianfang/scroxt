@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -233,10 +233,54 @@ var Event = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
+/**
+ * @param {string} cssText css文本字符串
+ * @returns void
+ * @example
+ *
+ * addStyleCSS("body{display:block}");
+ *
+ */
+function addStyleCSS(cssText) {
+    var style = document.createElement('style'), head = document.head || document.getElementsByTagName('head')[0];
+    style.type = 'text/css';
+    if (style.styleSheet) {
+        var func = function () {
+            try {
+                style.styleSheet.cssText = cssText;
+            }
+            catch (e) {
+                console.error(e);
+            }
+        };
+        //如果当前styleSheet不能用，则异步
+        if (style.styleSheet.disabled) {
+            setTimeout(func, 10);
+        }
+        else {
+            func();
+        }
+    }
+    else {
+        var textNode = document.createTextNode(cssText);
+        style.appendChild(textNode);
+    }
+    head.appendChild(style);
+}
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(7);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -247,6 +291,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
 
 
 
@@ -306,6 +351,7 @@ var Barrage = /** @class */ (function (_super) {
         _this.MAX_NUM = 50;
         _this.distance = -5;
         _this.colorFont = ['#ffff38', '#c80115', '#189add'];
+        _this.createStyle();
         _this.startRun();
         return _this;
     }
@@ -328,6 +374,12 @@ var Barrage = /** @class */ (function (_super) {
             }
         }
         return this.quickSort(left).concat(numValue, this.quickSort(right));
+    };
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    Barrage.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .scroxt-video-barrage{\n                position: relative;\n                width: 600px;\n                height: 600px;\n                margin: 0 auto;\n                overflow: hidden;\n            }\n            .scroxt-video{\n                display: block;\n                width: 100%;\n                height: auto;\n                cursor: pointer;\n            }\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n            .static-barrage-line{\n              position: absolute;\n              left: 50%;\n              transform:translateX(-50%);\n              -webkit-transform:translateX(-50%);\n              top: 0;\n              z-index: 2;\n            }\n        ");
     };
     Barrage.prototype.startRun = function () {
         //添加类名：scroxt-video

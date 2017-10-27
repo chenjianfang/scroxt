@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -254,8 +254,51 @@ function removeElement(ele) {
 /***/ }),
 /* 5 */,
 /* 6 */,
-/* 7 */,
-/* 8 */
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
+/**
+ * @param {string} cssText css文本字符串
+ * @returns void
+ * @example
+ *
+ * addStyleCSS("body{display:block}");
+ *
+ */
+function addStyleCSS(cssText) {
+    var style = document.createElement('style'), head = document.head || document.getElementsByTagName('head')[0];
+    style.type = 'text/css';
+    if (style.styleSheet) {
+        var func = function () {
+            try {
+                style.styleSheet.cssText = cssText;
+            }
+            catch (e) {
+                console.error(e);
+            }
+        };
+        //如果当前styleSheet不能用，则异步
+        if (style.styleSheet.disabled) {
+            setTimeout(func, 10);
+        }
+        else {
+            func();
+        }
+    }
+    else {
+        var textNode = document.createTextNode(cssText);
+        style.appendChild(textNode);
+    }
+    head.appendChild(style);
+}
+
+
+/***/ }),
+/* 8 */,
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -264,6 +307,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(7);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -274,6 +318,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
 
 
 
@@ -316,9 +361,16 @@ var Horizontal = /** @class */ (function (_super) {
          * @type {number}
          */
         _this.targetElementBorderWidth = 0;
+        _this.createStyle();
         _this.init();
         return _this;
     }
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    Horizontal.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .scroxt-wrapper{\n              width: 1000px;\n            }\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: 10px;\n            }\n        ");
+    };
     /**
      * [init 入口]
      */

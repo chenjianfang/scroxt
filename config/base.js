@@ -17,12 +17,16 @@ function getEntry (){
 }
 let entryHTMLFile = {};
 
+
+//js dev,prod生成到不同的目录
+const filename = process.env.NODE_ENV === 'dev'? 'js/[name].js': 'minjs/[name].js'
+
 var base = {
     entry:entryFile,
     output:{
         path: path.join(__dirname, '/../dist/'),
         publicPath: '/dist/',
-        filename: 'js/[name].js'
+        filename: filename
     },
     resolve:{
         extensions: ['.ts','.js'],

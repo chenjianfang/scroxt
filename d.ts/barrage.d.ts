@@ -94,6 +94,10 @@ declare class Barrage extends Event {
         data: string;
         time: number;
     }[]): any;
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    createStyle(): void;
     startRun(): void;
     /**
      * 视频重播

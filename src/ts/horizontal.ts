@@ -3,6 +3,7 @@ import setTimeTask from './internal/setTimeTask';
 import clearTimeTask from './internal/clearTimeTask';
 import getEleAttr from './internal/getEleAttr';
 import removeElement from './internal/removeElement';
+import addStyleCSS from './internal/addStyleCSS';
 
 /**
  * class Horizontal
@@ -47,9 +48,30 @@ import removeElement from './internal/removeElement';
 
      constructor(opt){
          super(opt);
-
+         this.createStyle();
          this.init();
      }
+
+     /**
+      * [createStyle 创建内嵌css]
+      */
+     createStyle(){
+        addStyleCSS(`
+            .scroxt-wrapper{
+              width: 1000px;
+            }
+            .scroxt-wrapper::after{
+                display: block;
+                content: "";
+                clear: both;
+            }
+            .scroxt-horizontal{
+                float: left;
+                margin-right: 10px;
+            }
+        `)
+     }
+
     /**
      * [init 入口]
      */

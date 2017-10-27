@@ -4,6 +4,7 @@ import clearTimeTask from './internal/clearTimeTask';
 import getEleAttr from './internal/getEleAttr';
 import removeElement from './internal/removeElement';
 import Event from './internal/Event';
+import addStyleCSS from './internal/addStyleCSS';
 
 interface dataTime{
     data:string
@@ -126,6 +127,7 @@ class Barrage extends Event{
         this.MAX_NUM = 50;
         this.distance = -5;
         this.colorFont = ['#ffff38','#c80115','#189add'];
+        this.createStyle();
         this.startRun();
     }
 
@@ -149,6 +151,51 @@ class Barrage extends Event{
         }
 
         return this.quickSort(left).concat(numValue,this.quickSort(right));
+    }
+
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    createStyle(){
+        addStyleCSS(`
+            .scroxt-video-barrage{
+                position: relative;
+                width: 600px;
+                height: 600px;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+            .scroxt-video{
+                display: block;
+                width: 100%;
+                height: auto;
+                cursor: pointer;
+            }
+            .multi-barrage-line{
+              position: absolute;
+              display: inline-block;
+              top: 0;
+              user-select:none;
+              white-space: pre;
+              color: #fff;
+              font-size: 25px;
+              font-family:SimHei, "Microsoft JhengHei", Arial, Helvetica, sans-serif;
+              font-weight:bold;
+              line-height: 1.125;
+              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;
+              transition:-webkit-transform 0s linear;
+              z-index: 1;
+              pointer-events: none;
+            }
+            .static-barrage-line{
+              position: absolute;
+              left: 50%;
+              transform:translateX(-50%);
+              -webkit-transform:translateX(-50%);
+              top: 0;
+              z-index: 2;
+            }
+        `);
     }
 
     startRun(){

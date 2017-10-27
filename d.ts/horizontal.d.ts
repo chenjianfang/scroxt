@@ -36,6 +36,10 @@ declare class Horizontal extends root {
     private targetElementBorderWidth;
     constructor(opt: any);
     /**
+     * [createStyle 创建内嵌css]
+     */
+    createStyle(): void;
+    /**
      * [init 入口]
      */
     init(): void;

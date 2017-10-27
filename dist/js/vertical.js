@@ -60,11 +60,32 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = isDOM;
+/**
+ * @param {Element} ele:判断元素
+ * @returns {Boolean} true:是元素节点，false:不是
+ * @example
+ *
+ * isDOM(document.body)
+ */
+function isDOM(ele) {
+    if (ele && ele.nodeType) {
+        return ele.nodeType === 1;
+    }
+}
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91,13 +112,13 @@ var setTimeTask = (function () {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["default"] = getEleAttr;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(0);
 
 /**
  * @param {any} css selector
@@ -120,9 +141,7 @@ function getEleAttr(ele, attr) {
 
 
 /***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -202,13 +221,13 @@ var root = /** @class */ (function () {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["default"] = removeElement;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(0);
 
 /**
  * @param {Element} ele:删除的元素的css选择器
@@ -233,40 +252,63 @@ function removeElement(ele) {
 
 
 /***/ }),
+/* 5 */,
 /* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = isDOM;
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
 /**
- * @param {Element} ele:判断元素
- * @returns {Boolean} true:是元素节点，false:不是
+ * @param {string} cssText css文本字符串
+ * @returns void
  * @example
  *
- * isDOM(document.body)
+ * addStyleCSS("body{display:block}");
+ *
  */
-function isDOM(ele) {
-    if (ele && ele.nodeType) {
-        return ele.nodeType === 1;
+function addStyleCSS(cssText) {
+    var style = document.createElement('style'), head = document.head || document.getElementsByTagName('head')[0];
+    style.type = 'text/css';
+    if (style.styleSheet) {
+        var func = function () {
+            try {
+                style.styleSheet.cssText = cssText;
+            }
+            catch (e) {
+                console.error(e);
+            }
+        };
+        //如果当前styleSheet不能用，则异步
+        if (style.styleSheet.disabled) {
+            setTimeout(func, 10);
+        }
+        else {
+            func();
+        }
     }
+    else {
+        var textNode = document.createTextNode(cssText);
+        style.appendChild(textNode);
+    }
+    head.appendChild(style);
 }
 
 
 /***/ }),
-/* 10 */,
-/* 11 */
+/* 8 */,
+/* 9 */,
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(7);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -277,6 +319,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
 
 
 
@@ -305,9 +348,16 @@ var Vertical = /** @class */ (function (_super) {
          */
         _this.distance = 0;
         _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.targetElement, 'height'));
+        _this.createStyle();
         _this.startRun();
         return _this;
     }
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    Vertical.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n    \t\t\n    \t");
+    };
     Vertical.prototype.startRun = function () {
         this.divWrapElementHeight = this.createVertical();
         this.STRun();

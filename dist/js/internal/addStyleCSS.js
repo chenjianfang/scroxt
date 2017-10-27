@@ -60,61 +60,51 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
-/***/ (function(module, exports) {
+/***/ 7:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// /**
-//  * @param {Element} _:删除的元素的css选择器
-//  * @example
-//  *
-//  * removeElement(".content")
-//  * removeElement("[data-id='2014']",true)
-//  */
-// let videoElement = null;
-// let lock = false;
-// let currentTime = 0;
-// function setVideoElement(vd){
-// 	videoElement = document.querySelector(vd);
-// 	videoElement.addEventListener("timeupdate",function(){
-// 		console.log(currentTime);
-// 		currentTime = videoElement.currentTime;
-// 	});
-// }
-// export default function getVideoCurrentTime(vd){
-// 	if(!videoElement){
-// 		setVideoElement(vd);
-// 		return 0;
-// 	}else{
-// 		return 1;
-// 	}
-// }
-// var videoElement = null;
-// var videoCurrentTime = 0;
-// function getVideoCurrentTime(vd){
-// 	if(videoElement !== null) return videoCurrentTime;
-// 	videoElement = document.querySelector(vd);
-// 	videoElement.addEventListener("timeupdate",function(){
-// 		console.log(videoCurrentTime);
-// 		videoCurrentTime = videoElement.currentTime;
-// 	});
-// }
-// 
-// export default function getVideoCurrentTime(vd){
-// 	const video = document.querySelector(vd);
-// 	if (video.readyState == 4) {  // android会走此逻辑
-// 	    foo();
-// 	} else {    // iOS走此逻辑
-// 	    video.addEventListener("canplaythrough", function() {
-// 	        foo();
-// 	    }, false);
-// 	    video.load();    // 需要主动触发下，不然不会加载
-// 	}
-// }
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
+/**
+ * @param {string} cssText css文本字符串
+ * @returns void
+ * @example
+ *
+ * addStyleCSS("body{display:block}");
+ *
+ */
+function addStyleCSS(cssText) {
+    var style = document.createElement('style'), head = document.head || document.getElementsByTagName('head')[0];
+    style.type = 'text/css';
+    if (style.styleSheet) {
+        var func = function () {
+            try {
+                style.styleSheet.cssText = cssText;
+            }
+            catch (e) {
+                console.error(e);
+            }
+        };
+        //如果当前styleSheet不能用，则异步
+        if (style.styleSheet.disabled) {
+            setTimeout(func, 10);
+        }
+        else {
+            func();
+        }
+    }
+    else {
+        var textNode = document.createTextNode(cssText);
+        style.appendChild(textNode);
+    }
+    head.appendChild(style);
+}
 
 
 /***/ })
