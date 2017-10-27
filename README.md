@@ -5,18 +5,18 @@ scroxt.js是一个字体滚动的插件库，包括弹幕滚动，单行水平�
 
 [scroxt.js官网](http:sztinghao.top) 
 
-## Build
+## Installation
 
 ```
-npm install
-npm run watch
+npm install --save scroxt
 
 ```
 
 ## Getting Started
 
-	你能很方便的使用插件用于字体滚动，scroxt是对一个对象，滚动方式不同对应不同的类名，像水平滚动的类名是Horizontal作为scroxt的属性，使用的时候只要new scroxt.Horizontal来生成滚动字体。这里有详细的例子 
-	[demo](https://github.com/chenjianfang/scroxt/tree/master/demo)
+你能很方便的使用插件用于字体滚动，scroxt是对一个对象，滚动方式不同对应不同的类名，像水平滚动的类名是Horizontal作为scroxt的属性，使用的时候只要new scroxt.Horizontal来生成滚动字体。这里有详细的例子 
+
+[demo](https://github.com/chenjianfang/scroxt/tree/master/demo)
 
 #### 水平滚动
 
