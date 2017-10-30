@@ -146,6 +146,49 @@ function getEleAttr(ele, attr) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
+/**
+ * @param {string} cssText css文本字符串
+ * @returns void
+ * @example
+ *
+ * addStyleCSS("body{display:block}");
+ *
+ */
+function addStyleCSS(cssText) {
+    var style = document.createElement('style'), head = document.head || document.getElementsByTagName('head')[0];
+    style.type = 'text/css';
+    if (style.styleSheet) {
+        var func = function () {
+            try {
+                style.styleSheet.cssText = cssText;
+            }
+            catch (e) {
+                console.log(e);
+            }
+        };
+        //如果当前styleSheet不能用，则异步
+        if (style.styleSheet.disabled) {
+            setTimeout(func, 10);
+        }
+        else {
+            func();
+        }
+    }
+    else {
+        var textNode = document.createTextNode(cssText);
+        style.appendChild(textNode);
+    }
+    head.appendChild(style);
+}
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /**
  * class root
  * @param {string} target: 插入滚动弹幕的元素
@@ -221,7 +264,7 @@ var root = /** @class */ (function () {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -246,57 +289,14 @@ function removeElement(ele) {
         element.parentNode.removeChild(element);
     }
     else {
-        console.error("参数错误");
+        console.log("参数错误");
     }
 }
 
 
 /***/ }),
-/* 5 */,
 /* 6 */,
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
-/**
- * @param {string} cssText css文本字符串
- * @returns void
- * @example
- *
- * addStyleCSS("body{display:block}");
- *
- */
-function addStyleCSS(cssText) {
-    var style = document.createElement('style'), head = document.head || document.getElementsByTagName('head')[0];
-    style.type = 'text/css';
-    if (style.styleSheet) {
-        var func = function () {
-            try {
-                style.styleSheet.cssText = cssText;
-            }
-            catch (e) {
-                console.error(e);
-            }
-        };
-        //如果当前styleSheet不能用，则异步
-        if (style.styleSheet.disabled) {
-            setTimeout(func, 10);
-        }
-        else {
-            func();
-        }
-    }
-    else {
-        var textNode = document.createTextNode(cssText);
-        style.appendChild(textNode);
-    }
-    head.appendChild(style);
-}
-
-
-/***/ }),
+/* 7 */,
 /* 8 */,
 /* 9 */,
 /* 10 */
@@ -304,11 +304,11 @@ function addStyleCSS(cssText) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||

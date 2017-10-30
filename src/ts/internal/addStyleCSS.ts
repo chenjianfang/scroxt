@@ -15,7 +15,7 @@ export default function addStyleCSS(cssText){
 			try{ //防止IE中stylesheet数量超过限制
 				style.styleSheet.cssText = cssText;
 			}catch(e){
-				console.error(e);
+				console.log(e);
 			}
 		}
 		//如果当前styleSheet不能用，则异步

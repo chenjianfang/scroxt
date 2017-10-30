@@ -60,12 +60,12 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 7:
+/***/ 3:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88,7 +88,7 @@ function addStyleCSS(cssText) {
                 style.styleSheet.cssText = cssText;
             }
             catch (e) {
-                console.error(e);
+                console.log(e);
             }
         };
         //如果当前styleSheet不能用，则异步

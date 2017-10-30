@@ -55,29 +55,29 @@ new scroxt.Vertical({
 ```
 ...
 <link rel="stylesheet" type="text/css" href="./src/css/scroxt.css">
-	<div class="scroll-box-barrage">
-	    <div class="scroxt-video-barrage">
-	        <video id="my-video" preload="auto" width="640" height="auto">
-	          <source src="http://14.215.100.242/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4" type='video/mp4'>
-	        </video>
-	    </div>
-	</div>
-	<script type="text/javascript" src="./dist/js/scroxt.js"></script>
-	<script type="text/javascript">
-		new scroxt.Barrage({
-		    video: "#my-video",
-		    dataTime: [{
-		    	data:"第一条弹幕",
-		    	time:1
-		    },{
-		    	data:"第二条弹幕",
-		    	time:3
-		    },{
-		    	data:"第三条弹幕",
-		    	time:2
-		    }]
-		});
-	</script>
+<div class="scroll-box-barrage">
+    <div class="scroxt-video-barrage">
+        <video id="my-video" preload="auto" width="640" height="auto">
+          <source src="http://14.215.100.242/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4" type='video/mp4'>
+        </video>
+    </div>
+</div>
+<script type="text/javascript" src="./dist/js/scroxt.js"></script>
+<script type="text/javascript">
+	new scroxt.Barrage({
+	    video: "#my-video",
+	    dataTime: [{
+	    	data:"第一条弹幕",
+	    	time:1
+	    },{
+	    	data:"第二条弹幕",
+	    	time:3
+	    },{
+	    	data:"第三条弹幕",
+	    	time:2
+	    }]
+	});
+</script>
 ...
 
 ```
