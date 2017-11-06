@@ -81,6 +81,9 @@ function isDOM(ele) {
     if (ele && ele.nodeType) {
         return ele.nodeType === 1;
     }
+    else {
+        return false;
+    }
 }
 
 

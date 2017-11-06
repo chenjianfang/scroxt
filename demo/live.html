@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 弹幕 -->
+<div class="scroll-box-barrage">
+    <div class="scroxt-video-barrage" style="width: 100%;">
+        <img class="video-bg" src="./img/bg.png" style="width: 100%;height: auto;display: block;vertical-align: middle;">
+    </div>
+</div>
+
+<script src="../dist/js/scroxt.js"></script>
+<script>
+    var scroxtLive = new scroxt.Live({
+        target: ".scroxt-video-barrage",
+        strongLock:true
+    });
+    var i = 0;
+    setInterval(function(){
+        i++;
+        scroxtLive.addBarrage(i+"你好啊")
+    },30)
+
+    setTimeout(function(){
+        scroxtLive.addBarrage("一一一一一一一一一一",true)
+    },3000);
+</script>
+</body>
+</html>

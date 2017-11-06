@@ -88,7 +88,7 @@ function addStyleCSS(cssText) {
                 style.styleSheet.cssText = cssText;
             }
             catch (e) {
-                console.log(e);
+                console.error(e);
             }
         };
         //如果当前styleSheet不能用，则异步

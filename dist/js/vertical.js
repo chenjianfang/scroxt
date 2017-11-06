@@ -81,6 +81,9 @@ function isDOM(ele) {
     if (ele && ele.nodeType) {
         return ele.nodeType === 1;
     }
+    else {
+        return false;
+    }
 }
 
 
@@ -164,7 +167,7 @@ function addStyleCSS(cssText) {
                 style.styleSheet.cssText = cssText;
             }
             catch (e) {
-                console.log(e);
+                console.error(e);
             }
         };
         //如果当前styleSheet不能用，则异步
@@ -289,7 +292,7 @@ function removeElement(ele) {
         element.parentNode.removeChild(element);
     }
     else {
-        console.log("参数错误");
+        console.error("参数错误");
     }
 }
 

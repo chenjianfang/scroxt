@@ -99,9 +99,6 @@ class Barrage extends Event{
      * [barrageWrap 弹幕的索引]
      * @type {Array<Element>}
      */
-    // private barrageWrap:Array<Element> = [];
-    // private barrageWrap: Element[] = [];
-
     private barrageWrap: {element:Element,scroxt:number,line:number,move:number,width:number,distance:number,color:string}[] = [];
 
 

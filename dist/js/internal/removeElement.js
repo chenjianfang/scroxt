@@ -82,6 +82,9 @@ function isDOM(ele) {
     if (ele && ele.nodeType) {
         return ele.nodeType === 1;
     }
+    else {
+        return false;
+    }
 }
 
 
@@ -112,7 +115,7 @@ function removeElement(ele) {
         element.parentNode.removeChild(element);
     }
     else {
-        console.log("参数错误");
+        console.error("参数错误");
     }
 }
 

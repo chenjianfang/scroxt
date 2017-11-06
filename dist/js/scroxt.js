@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,6 +80,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 function isDOM(ele) {
     if (ele && ele.nodeType) {
         return ele.nodeType === 1;
+    }
+    else {
+        return false;
     }
 }
 
@@ -164,7 +167,7 @@ function addStyleCSS(cssText) {
                 style.styleSheet.cssText = cssText;
             }
             catch (e) {
-                console.log(e);
+                console.error(e);
             }
         };
         //如果当前styleSheet不能用，则异步
@@ -289,7 +292,7 @@ function removeElement(ele) {
         element.parentNode.removeChild(element);
     }
     else {
-        console.log("参数错误");
+        console.error("参数错误");
     }
 }
 
@@ -433,8 +436,6 @@ var Barrage = /** @class */ (function (_super) {
          * [barrageWrap 弹幕的索引]
          * @type {Array<Element>}
          */
-        // private barrageWrap:Array<Element> = [];
-        // private barrageWrap: Element[] = [];
         _this.barrageWrap = [];
         /**
          * [readyShowBarrage 准备出场的弹幕]
@@ -975,9 +976,206 @@ var Vertical = /** @class */ (function (_super) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(6);
+
+
+
+
+/**
+ * class Live
+ * @returns voild
+ */
+var Live = /** @class */ (function () {
+    function Live(_a) {
+        var target = _a.target, _b = _a.strongLock, strongLock = _b === void 0 ? false : _b;
+        /**
+        * [barrage 弹幕]
+        * @type {Array}
+        */
+        this.barrage = [];
+        /**
+        * [selfBarrage 弹幕]
+        * @type {Array}
+        */
+        this.selfBarrage = [];
+        /**
+         * [barrageWrap 弹幕的索引]
+         * @type {Array<Element>}
+         */
+        this.barrageWrap = {};
+        // private barrageWrap: {element:Element,line:number,move:number,width:number,speed:number}[] = [];
+        /**
+         * [MAX_LINE 最大行]
+         * @type {number}
+         */
+        this.MAX_LINE = 4;
+        /**
+         * [lineHeight 单行行高]
+         * @type {number}
+         */
+        this.lineHeight = 28;
+        /**
+         * [sumLine 弹幕总数]
+         * @type {number}
+         */
+        this.sumLine = 0;
+        /**
+         * [lineGap 弹幕初始间隔]
+         * @type {number}
+         */
+        this.lineGap = 10;
+        /**
+         * 开始播放
+         */
+        this.runST = 0;
+        this.targetElement = document.querySelector(target);
+        this.strongLock = strongLock;
+        this.TARGET_WIDTH = parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["default"])(this.targetElement, "width"));
+        this.MAX_LINE = ~~(parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["default"])(this.targetElement, "height")) / this.lineHeight);
+        this.gear = -5;
+        this.LINE_LIMIT = 300;
+        this.startRun();
+    }
+    Live.prototype.startRun = function () {
+        this.createStyle();
+        this.intervalRun();
+    };
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    Live.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__["default"])("\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n        ");
+    };
+    /**
+     * [addBarrage 添加弹幕]
+     * @param {string} data [添加弹幕]
+     * @param {boolean} self [自己的弹幕]
+     */
+    Live.prototype.addBarrage = function (data, self) {
+        if (self === void 0) { self = false; }
+        if (self)
+            this.selfBarrage.push(data);
+        else
+            this.barrage.push(data);
+    };
+    /**
+     * [createBarrage 创建弹幕from readyShowBarrage]
+     */
+    Live.prototype.createBarrage = function () {
+        for (var i = 0, len = this.barrage.length; len > 0 && i < this.MAX_LINE; i++) {
+            var text = void 0;
+            var lineIndex = i % this.MAX_LINE;
+            if (this.selfBarrage.length > 0) {
+                text = this.selfBarrage.shift();
+            }
+            else {
+                if (this.strongLock && this.sumLine > 65) {
+                    this.barrage = [];
+                    break;
+                }
+                //当前行最后一个元素是否完全出场
+                if (this.barrageWrap[lineIndex]) {
+                    var len_1 = this.barrageWrap[lineIndex].length;
+                    if (len_1 > 0) {
+                        var lastNodeObj = this.barrageWrap[lineIndex][len_1 - 1];
+                        if (lastNodeObj["move"] + lastNodeObj["width"] > this.TARGET_WIDTH - this.lineGap) {
+                            continue;
+                        }
+                    }
+                }
+                text = this.barrage.shift();
+                len--;
+            }
+            this.generateBarrage(lineIndex, text);
+        }
+    };
+    Live.prototype.generateBarrage = function (lineIndex, text) {
+        var div = document.createElement('div');
+        div.className = "multi-barrage-line";
+        var textNode = document.createTextNode(text);
+        div.appendChild(textNode);
+        div.style.opacity = '0';
+        this.targetElement.appendChild(div);
+        var refWidth = parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["default"])(div, "width"));
+        var speed = refWidth / 600 >= 0.5 ? 0.5 : refWidth / 600;
+        if (!this.barrageWrap[lineIndex]) {
+            this.barrageWrap[lineIndex] = [{
+                    element: div,
+                    line: lineIndex,
+                    move: this.TARGET_WIDTH,
+                    width: refWidth,
+                    speed: speed
+                }];
+        }
+        else {
+            this.barrageWrap[lineIndex].push({
+                element: div,
+                line: lineIndex,
+                move: this.TARGET_WIDTH,
+                width: refWidth,
+                speed: speed
+            });
+        }
+    };
+    /**
+     * [moveLine 页面弹幕移动]
+     */
+    Live.prototype.moveLine = function () {
+        this.sumLine = 0;
+        for (var j in this.barrageWrap) {
+            var barrageArr = this.barrageWrap[j];
+            this.sumLine += barrageArr.length;
+            for (var i = 0; i < barrageArr.length; i++) {
+                var barrage = barrageArr[i];
+                var scroxt = barrage['element'];
+                var line = barrage['line'];
+                var move = barrage['move'];
+                var width = barrage['width'];
+                var speed = barrage['speed'];
+                if (move <= -width) {
+                    barrageArr.splice(i, 1);
+                    i--;
+                    this.targetElement.removeChild(scroxt);
+                    continue;
+                }
+                var setMove = move + this.gear * speed + this.gear / 10;
+                barrage['move'] = setMove;
+                scroxt.style.cssText = "transform:translate3d(" + setMove + "px," + line * this.lineHeight + "px,0);opacity=\"1\";";
+            }
+        }
+    };
+    Live.prototype.intervalRun = function () {
+        this.runST = Object(__WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__["default"])(function () {
+            this.moveLine();
+            this.createBarrage();
+            this.intervalRun();
+        }.bind(this));
+    };
+    /**
+     * 停止播放
+     */
+    Live.prototype.intervalStop = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__["default"])(this.runST);
+    };
+    return Live;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Live);
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(12);
+
 
 
 
@@ -1036,6 +1234,38 @@ scroxt.Vertical = __WEBPACK_IMPORTED_MODULE_1__vertical__["default"];
  * });
  */
 scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["default"];
+/**
+ * class Barrage
+ * @param {target: string,strongLock: boolean} obj 类构造参数
+ * target:target标签的css选择器。[strongLock]:强制模式，默认false
+ * @returns voild
+ * @example
+ *
+ *1.非强制模式，所有弹幕都会出现，但是某些浏览器可能会因为弹幕数量过多导致卡顿
+ * var scroxtLive = new scroxt.Live({
+ *     target: ".scroxt-video-barrage"
+ * });
+ *scroxtLive.addBarrage("第一条弹幕");
+ *scroxtLive.addBarrage("第二条弹幕");
+ *
+ *2.强制模式，页面最多出现65条弹幕.页面当有65条弹幕的时候，添加的任何弹幕将会扔掉直至屏幕中的弹幕消失
+ * new scroxt.Live({
+ *     target: ".scroxt-video-barrage",
+ *     strongLock: true
+ * });
+ *scroxtLive.addBarrage("第一条弹幕");
+ *scroxtLive.addBarrage("第二条弹幕");
+ *
+ *3.强制模式，强制模式下，由于弹幕可能会被扔掉，但用户自己发弹幕不能扔！！！用户本人发的弹幕addBarrage第二个参数为true。已达到欺骗效果
+ * new scroxt.Live({
+ *     target: ".scroxt-video-barrage",
+ *     strongLock: true
+ * });
+ *scroxtLive.addBarrage("这是我自己的弹幕,只有用户本人能看到",true);
+ *
+ *
+ */
+scroxt.Live = __WEBPACK_IMPORTED_MODULE_3__live__["default"];
 window.scroxt = scroxt;
 
 

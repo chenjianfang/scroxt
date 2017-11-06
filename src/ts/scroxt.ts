@@ -1,6 +1,7 @@
 import Horizontal from "./horizontal";
 import Vertical from "./vertical";
 import Barrage from "./barrage";
+import Live from "./live";
 
 /**
  * [scroxt scroxt全局对象]
@@ -61,5 +62,40 @@ scroxt.Vertical = Vertical;
  * });
  */
 scroxt.Barrage = Barrage;
+
+
+/**
+ * class Barrage
+ * @param {target: string,strongLock: boolean} obj 类构造参数
+ * target:target标签的css选择器。[strongLock]:强制模式，默认false
+ * @returns voild
+ * @example
+ * 
+ *1.非强制模式，所有弹幕都会出现，但是某些浏览器可能会因为弹幕数量过多导致卡顿
+ * var scroxtLive = new scroxt.Live({
+ *     target: ".scroxt-video-barrage"
+ * });
+ *scroxtLive.addBarrage("第一条弹幕");
+ *scroxtLive.addBarrage("第二条弹幕");
+ *
+ *2.强制模式，页面最多出现65条弹幕.页面当有65条弹幕的时候，添加的任何弹幕将会扔掉直至屏幕中的弹幕消失
+ * new scroxt.Live({
+ *     target: ".scroxt-video-barrage",
+ *     strongLock: true
+ * });
+ *scroxtLive.addBarrage("第一条弹幕");
+ *scroxtLive.addBarrage("第二条弹幕");
+ *
+ *3.强制模式，强制模式下，由于弹幕可能会被扔掉，但用户自己发弹幕不能扔！！！用户本人发的弹幕addBarrage第二个参数为true。已达到欺骗效果
+ * new scroxt.Live({
+ *     target: ".scroxt-video-barrage",
+ *     strongLock: true
+ * });
+ *scroxtLive.addBarrage("这是我自己的弹幕,只有用户本人能看到",true);
+ *
+ * 
+ */
+scroxt.Live = Live;
+
 
 (window as any).scroxt = scroxt;
