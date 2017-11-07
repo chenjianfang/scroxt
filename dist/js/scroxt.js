@@ -193,6 +193,27 @@ function addStyleCSS(cssText) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /**
+ * 取消定时器profix
+ *
+ * 例子
+ *
+ * clearTimeTask(st);
+ */
+var clearTimeTask = (function () {
+    return window.cancelAnimationFrame ||
+        window.mozCancelAnimationFrame ||
+        window.clearTimeout;
+})();
+/* harmony default export */ __webpack_exports__["default"] = (clearTimeTask);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/**
  * class root
  * @param {string} target: 插入滚动弹幕的元素
  * @param {Array<string>} data: 弹幕内容
@@ -267,7 +288,7 @@ var root = /** @class */ (function () {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -295,27 +316,6 @@ function removeElement(ele) {
         console.error("参数错误");
     }
 }
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/**
- * 取消定时器profix
- *
- * 例子
- *
- * clearTimeTask(st);
- */
-var clearTimeTask = (function () {
-    return window.cancelAnimationFrame ||
-        window.mozCancelAnimationFrame ||
-        window.clearTimeout;
-})();
-/* harmony default export */ __webpack_exports__["default"] = (clearTimeTask);
 
 
 /***/ }),
@@ -389,7 +389,7 @@ var Event = /** @class */ (function () {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
@@ -702,10 +702,10 @@ var Barrage = /** @class */ (function (_super) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -854,132 +854,10 @@ var Horizontal = /** @class */ (function (_super) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-
-
-/**
- * class Vertical   垂直滚动
- * @returns voild
- */
-var Vertical = /** @class */ (function (_super) {
-    __extends(Vertical, _super);
-    function Vertical(opt) {
-        var _this = _super.call(this, opt) || this;
-        /**
-         * [targetHeight target高度]
-         * @type {number}
-         */
-        _this.targetHeight = 0;
-        /**
-         * [divWrapElementHeight 元素总宽度]
-         * @type {number}
-         */
-        _this.divWrapElementHeight = 0;
-        /**
-         * [distance 移动的距离]
-         * @type {number}
-         */
-        _this.distance = 0;
-        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.targetElement, 'height'));
-        _this.createStyle();
-        _this.startRun();
-        return _this;
-    }
-    /**
-     * [createStyle 创建内嵌css]
-     */
-    Vertical.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n    \t\t\n    \t");
-    };
-    Vertical.prototype.startRun = function () {
-        this.divWrapElementHeight = this.createVertical();
-        this.STRun();
-    };
-    /**
-     * [createVertical 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
-     */
-    Vertical.prototype.createVertical = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["default"])(".scroxt-wrapper");
-        var verticalArr1 = this.createElement("scroxt-vertical");
-        var verticalArr2 = this.createElement("scroxt-vertical");
-        this.divWrapElement = document.querySelector(".scroxt-wrapper");
-        var divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
-        return divWrapElementHeight;
-    };
-    /**
-     * [computeWidth 计算元素宽度]
-     * @param {Array<HTMLElement>} ElementArr [元素集合]
-     */
-    Vertical.prototype.computeHeight = function (ElementArr) {
-        var height = 0;
-        for (var i = 0, len = ElementArr.length; i < len; i++) {
-            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(ElementArr[i], "height").replace("px", "")));
-        }
-        return height;
-    };
-    /**
-     * [STRun 定时器]
-     */
-    Vertical.prototype.STRun = function () {
-        this.STMove();
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["default"])(function () {
-            this.STRun();
-        }.bind(this));
-    };
-    /**
-     * [STMove 一帧移动]
-     */
-    Vertical.prototype.STMove = function () {
-        if (this.options.speed < 0) {
-            if (this.distance <= -this.divWrapElementHeight / 2) {
-                this.createVertical();
-                this.distance = 0;
-            }
-        }
-        else {
-            if (this.distance >= this.targetHeight - this.divWrapElementHeight / 2) {
-                this.createVertical();
-                this.distance = this.targetHeight - this.divWrapElementHeight;
-            }
-        }
-        this.divWrapElement.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
-        this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
-        this.distance += this.options.speed * 0.1;
-    };
-    return Vertical;
-}(__WEBPACK_IMPORTED_MODULE_0__root__["default"]));
-/* harmony default export */ __webpack_exports__["default"] = (Vertical);
-
-
-/***/ }),
-/* 11 */,
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(4);
 
 
 
@@ -1166,15 +1044,137 @@ var Live = /** @class */ (function () {
 
 
 /***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+
+/**
+ * class Vertical   垂直滚动
+ * @returns voild
+ */
+var Vertical = /** @class */ (function (_super) {
+    __extends(Vertical, _super);
+    function Vertical(opt) {
+        var _this = _super.call(this, opt) || this;
+        /**
+         * [targetHeight target高度]
+         * @type {number}
+         */
+        _this.targetHeight = 0;
+        /**
+         * [divWrapElementHeight 元素总宽度]
+         * @type {number}
+         */
+        _this.divWrapElementHeight = 0;
+        /**
+         * [distance 移动的距离]
+         * @type {number}
+         */
+        _this.distance = 0;
+        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.targetElement, 'height'));
+        _this.createStyle();
+        _this.startRun();
+        return _this;
+    }
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    Vertical.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n    \t\t\n    \t");
+    };
+    Vertical.prototype.startRun = function () {
+        this.divWrapElementHeight = this.createVertical();
+        this.STRun();
+    };
+    /**
+     * [createVertical 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
+     */
+    Vertical.prototype.createVertical = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["default"])(".scroxt-wrapper");
+        var verticalArr1 = this.createElement("scroxt-vertical");
+        var verticalArr2 = this.createElement("scroxt-vertical");
+        this.divWrapElement = document.querySelector(".scroxt-wrapper");
+        var divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
+        return divWrapElementHeight;
+    };
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    Vertical.prototype.computeHeight = function (ElementArr) {
+        var height = 0;
+        for (var i = 0, len = ElementArr.length; i < len; i++) {
+            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(ElementArr[i], "height").replace("px", "")));
+        }
+        return height;
+    };
+    /**
+     * [STRun 定时器]
+     */
+    Vertical.prototype.STRun = function () {
+        this.STMove();
+        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["default"])(function () {
+            this.STRun();
+        }.bind(this));
+    };
+    /**
+     * [STMove 一帧移动]
+     */
+    Vertical.prototype.STMove = function () {
+        if (this.options.speed < 0) {
+            if (this.distance <= -this.divWrapElementHeight / 2) {
+                this.createVertical();
+                this.distance = 0;
+            }
+        }
+        else {
+            if (this.distance >= this.targetHeight - this.divWrapElementHeight / 2) {
+                this.createVertical();
+                this.distance = this.targetHeight - this.divWrapElementHeight;
+            }
+        }
+        this.divWrapElement.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.distance += this.options.speed * 0.1;
+    };
+    return Vertical;
+}(__WEBPACK_IMPORTED_MODULE_0__root__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Vertical);
+
+
+/***/ }),
+/* 12 */,
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(10);
 
 
 

@@ -68,14 +68,14 @@ var base = {
         new ExtractTextPlugin('css/[name].css'),
 
         //删除dist文件
-        new CleanWebpackPlugin(
-            ['js','css'],
-            {
-                root: path.join(__dirname, '/../dist/'),
-                verbose: true,
-                dry: false,
-            }
-        ),
+        // new CleanWebpackPlugin(
+        //     ['js','css'],
+        //     {
+        //         root: path.join(__dirname, '/../dist/'),
+        //         verbose: true,
+        //         dry: false,
+        //     }
+        // ),
 
         new TsConfigPathsPlugin({
             configFileName:"../tsconfig.json"

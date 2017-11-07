@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -187,9 +187,7 @@ function addStyleCSS(cssText) {
 
 
 /***/ }),
-/* 4 */,
-/* 5 */,
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -210,12 +208,12 @@ var clearTimeTask = (function () {
 
 
 /***/ }),
+/* 5 */,
+/* 6 */,
 /* 7 */,
 /* 8 */,
 /* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -223,7 +221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(4);
 
 
 
