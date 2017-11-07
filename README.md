@@ -83,7 +83,7 @@ new scroxt.Vertical({
 
 参数：
 - video：视频标签的css选择器
-- dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间(video播放的时间)
+- dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间/秒单位(video播放的时间)
 
 #### 四-1、直播弹幕
 
