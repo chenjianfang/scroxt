@@ -3,7 +3,7 @@ README
 ## scroxt.js   Overview
 scroxt.js是一个字体滚动的插件库，包括弹幕滚动，单行水平左右滚动、文本垂直滚动上下，用于简单快捷生成滚动字体。性能优秀，通过CPU加速，缓存字体元素，帧运动，达到最流畅的效果。兼容Chrome、Firefox、Opera、IE9及IE9以上浏览器。
 
-[scroxt.js官网](http:sztinghao.top) 
+<!-- [scroxt.js官网](http:sztinghao.top)  -->
 
 ## Installation
 
@@ -18,7 +18,7 @@ npm install --save scroxt
 
 [demo](https://github.com/chenjianfang/scroxt/tree/master/demo)
 
-#### 水平滚动
+#### 一、水平滚动
 
 ```
 new scroxt.Horizontal({
@@ -33,7 +33,7 @@ new scroxt.Horizontal({
 - data：字体数组
 - speed: 滚动速度，单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10
 
-#### 垂直滚动
+#### 二、垂直滚动
 
 ```
 new scroxt.Vertical({
@@ -50,7 +50,7 @@ new scroxt.Vertical({
 - speed: 滚动速度，speed的大小范围为 1-10。单位帧移动的距离= speed * 0.1。
 
 
-#### 视频弹幕
+#### 三、视频弹幕
 
 ```
 ...
@@ -85,7 +85,7 @@ new scroxt.Vertical({
 - video：视频标签的css选择器
 - dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间(video播放的时间)
 
-#### 直播弹幕
+#### 四-1、直播弹幕
 
 ```
 ...
@@ -118,7 +118,7 @@ setTimeout(function(){
 方法：
 - addBarrage：添加弹幕
 
-#### 直播弹幕兼容低版本的浏览器
+#### 四-2、直播弹幕兼容低版本的浏览器
 火狐浏览器、IE9以下、浏览器操作元素滚动达到一定数量会出现严重掉帧的情况。所以在强制模式下，插件控制弹幕数量（屏幕最多65条弹幕）。但用户自己看到的弹幕不能缺失，当用户自己发弹幕时，通过给addBarrage方法传第二个参数true，只在用户自己电脑上出现弹幕，已达到欺骗的目的。api如下：
 ```
 <script type="text/javascript">
