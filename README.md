@@ -12,7 +12,7 @@ npm install --save scroxt
 
 ```
 ## 更新
-2017.11.08 视频弹幕增加播放，暂停，重播，快进，快退接口。详细查看"三、视频弹幕"
+2017.11.08 视频弹幕增加播放，暂停，重播，快进，快退接口。详细查看[视频弹幕](https://github.com/chenjianfang/scroxt#三视频弹幕)
 
 
 ## Getting Started
