@@ -100,17 +100,15 @@ new scroxt.Vertical({
 ```
 
 scroxt.Barrage参数：
-
 - video：视频标签的css选择器
 - dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间/秒单位(video播放的时间);
 
 scroxt.Barrage实例参数：
-
--play(): 开始播放
--stop(): 暂停播放
--restart(): 重新播放
--moveInterval(s): 快进s秒
--moveInterval(-s): 后退s秒
+- play(): 开始播放
+- stop(): 暂停播放
+- restart(): 重新播放
+- moveInterval(s): 快进s秒
+- moveInterval(-s): 后退s秒
 
 #### 四-1、直播弹幕
 
