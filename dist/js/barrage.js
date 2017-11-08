@@ -309,16 +309,6 @@ var Barrage = /** @class */ (function (_super) {
         var video = _a.video, dataTime = _a.dataTime;
         var _this = _super.call(this) || this;
         /**
-         * [currentTime 当前时间 \s]
-         * @type {number}
-         */
-        _this.currentTime = 0;
-        /**
-         * [sumTime 播放了的时间 \s]
-         * @type {number}
-         */
-        _this.sumTime = 0;
-        /**
          * [videoEnd 视频播放结束状态 true为播放结束]
          * @type {Boolean}
          */
@@ -380,85 +370,80 @@ var Barrage = /** @class */ (function (_super) {
      * [createStyle 创建内嵌css]
      */
     Barrage.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .scroxt-video-barrage{\n                position: relative;\n                width: 600px;\n                height: 600px;\n                margin: 0 auto;\n                overflow: hidden;\n            }\n            .scroxt-video{\n                display: block;\n                width: 100%;\n                height: auto;\n                cursor: pointer;\n            }\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n            .static-barrage-line{\n              position: absolute;\n              left: 50%;\n              transform:translateX(-50%);\n              -webkit-transform:translateX(-50%);\n              top: 0;\n              z-index: 2;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n            .static-barrage-line{\n              position: absolute;\n              left: 50%;\n              transform:translateX(-50%);\n              -webkit-transform:translateX(-50%);\n              top: 0;\n              z-index: 2;\n            }\n        ");
     };
     Barrage.prototype.startRun = function () {
         //添加类名：scroxt-video
         var className = this.scroxtVideo.className;
         this.scroxtVideo.className = className.indexOf('scroxt-video') > -1 ? className : className + ' scroxt-video';
-        this.playEvent();
+        this.timeUpdate();
     };
     /**
-     * 视频重播
+     * 视频播放
      */
-    Barrage.prototype.restart = function () {
-        this.sumTime = 0;
-        this.tempDataTime = JSON.parse(JSON.stringify(this.dataTime));
-    };
-    /**
-     * 视频加载到可以播放，点击播放
-     */
-    Barrage.prototype.playEvent = function () {
-        var that = this;
-        if (this.scroxtVideo.readyState == 4) {
-            that.videoClickEvent();
-        }
-        else {
-            this.scroxtVideo.addEventListener("canplaythrough", function () {
-                that.videoClickEvent();
-            }, false);
-            this.scroxtVideo.load(); // 需要主动触发下，不然不会加载
-        }
-    };
-    /**
-     * [videoClickEvent videoElement绑定点击事件]
-     */
-    Barrage.prototype.videoClickEvent = function () {
-        var that = this;
-        that.scroxtVideo.addEventListener("click", function (e) {
-            e.stopImmediatePropagation();
-            if (that.videoEnd) {
-                that.videoEnd = false;
-                that.restart();
-            }
-            that.videoStatusMethod();
-        }, false);
-        that.scroxtVideo.addEventListener("ended", function () {
-            that.videoEnd = true;
-            that.readyShowBarrage = [];
-        });
-    };
-    /**
-     * 视频播放暂停
-     */
-    Barrage.prototype.videoStatusMethod = function () {
+    Barrage.prototype.play = function () {
         if (this.scroxtVideo.paused) {
-            this.currentTime = +new Date();
             this.scroxtVideo.play();
             this.intervalRun();
         }
-        else {
+    };
+    /**
+     * 视频暂停
+     */
+    Barrage.prototype.stop = function () {
+        if (!this.scroxtVideo.paused) {
             this.scroxtVideo.pause();
             this.intervalStop();
         }
     };
     /**
+     * 视频重播
+     */
+    Barrage.prototype.restart = function () {
+        this.readyShowBarrage = [];
+        this.tempDataTime = JSON.parse(JSON.stringify(this.dataTime));
+        this.scroxtVideo.currentTime = 0;
+        this.barrageWrap.forEach(function (value, index) {
+            var parentElement = value["element"].parentNode;
+            if (parentElement)
+                parentElement.removeChild(value["element"]);
+        });
+        this.barrageWrap = [];
+    };
+    /**
+     * [moveInterval 前进或后退的秒数，正数表示快进s秒，负数表示后退s秒]
+     * @param {number=0} s [快进的秒数]
+     */
+    Barrage.prototype.moveInterval = function (s) {
+        if (s === void 0) { s = 0; }
+        this.readyShowBarrage = [];
+        this.tempDataTime = JSON.parse(JSON.stringify(this.dataTime));
+        this.scroxtVideo.currentTime += s;
+        this.barrageWrap.forEach(function (value, index) {
+            var parentElement = value["element"].parentNode;
+            if (parentElement)
+                parentElement.removeChild(value["element"]);
+        });
+        this.barrageWrap = [];
+    };
+    /**
      * [timeUpdate 播放时间更新]
      */
     Barrage.prototype.timeUpdate = function () {
-        this.sumTime += ((+new Date()) - this.currentTime) / 1000;
-        this.currentTime = +new Date();
-        this.distribution(this.sumTime);
+        this.scroxtVideo.addEventListener("timeupdate", function () {
+            this.distribution(this.scroxtVideo.currentTime);
+        }.bind(this));
     };
     /**
     * 分配弹幕，决定弹幕出场
     */
-    Barrage.prototype.distribution = function (sumTime) {
+    Barrage.prototype.distribution = function (currentTime) {
         var len = this.tempDataTime.length;
         var i = 0;
         while (len !== 0) {
-            if (this.tempDataTime[i].time < sumTime) {
-                this.readyShowBarrage.push(this.tempDataTime[i]["data"]);
+            if (this.tempDataTime[i].time < currentTime) {
+                if (this.tempDataTime[i].time >= currentTime - 2)
+                    this.readyShowBarrage.push(this.tempDataTime[i]["data"]);
                 this.tempDataTime.shift();
                 len = this.tempDataTime.length;
             }
@@ -570,9 +555,6 @@ var Barrage = /** @class */ (function (_super) {
         this.runST = Object(__WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__["default"])(function () {
             this.createBarrage();
             this.moveLine();
-            if (!this.scroxtVideo.paused) {
-                this.timeUpdate();
-            }
             this.intervalRun();
         }.bind(this));
     };

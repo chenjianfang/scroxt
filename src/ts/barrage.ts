@@ -42,18 +42,6 @@ class Barrage extends Event{
     private distance:number;
 
     /**
-     * [currentTime 当前时间 \s]
-     * @type {number}
-     */
-    private currentTime:number = 0;
-
-    /**
-     * [sumTime 播放了的时间 \s]
-     * @type {number}
-     */
-    private sumTime:number = 0;
-
-    /**
      * [videoEnd 视频播放结束状态 true为播放结束]
      * @type {Boolean}
      */
@@ -155,19 +143,6 @@ class Barrage extends Event{
      */
     createStyle(){
         addStyleCSS(`
-            .scroxt-video-barrage{
-                position: relative;
-                width: 600px;
-                height: 600px;
-                margin: 0 auto;
-                overflow: hidden;
-            }
-            .scroxt-video{
-                display: block;
-                width: 100%;
-                height: auto;
-                cursor: pointer;
-            }
             .multi-barrage-line{
               position: absolute;
               display: inline-block;
@@ -200,86 +175,80 @@ class Barrage extends Event{
         const className = this.scroxtVideo.className;
         this.scroxtVideo.className = className.indexOf('scroxt-video') > -1 ? className : className+' scroxt-video';
 
-        this.playEvent();
+        this.timeUpdate();
     }
 
-    /**
-     * 视频重播
-     */
-    restart(){
-        this.sumTime = 0;
-        this.tempDataTime = JSON.parse(JSON.stringify(this.dataTime));
-    }
+    
 
     /**
-     * 视频加载到可以播放，点击播放
+     * 视频播放
      */
-    playEvent(){
-        const that = this;
-        if (this.scroxtVideo.readyState == 4) {  // android会走此逻辑
-            that.videoClickEvent();
-        } else {    // iOS走此逻辑
-            this.scroxtVideo.addEventListener("canplaythrough", function() {
-                that.videoClickEvent();
-            }, false);
-            
-            this.scroxtVideo.load();    // 需要主动触发下，不然不会加载
-        }
-
-        
-    }
-
-    /**
-     * [videoClickEvent videoElement绑定点击事件]
-     */
-    videoClickEvent(){
-        const that = this;
-        that.scroxtVideo.addEventListener("click",function(e){
-            e.stopImmediatePropagation();
-            if(that.videoEnd){
-                that.videoEnd = false;
-                that.restart();
-            }
-            that.videoStatusMethod();
-        },false);
-        that.scroxtVideo.addEventListener("ended",function(){
-            that.videoEnd = true;
-            that.readyShowBarrage = [];
-        });
-    }
-
-    /**
-     * 视频播放暂停
-     */
-    videoStatusMethod(){
+    play(){
         if(this.scroxtVideo.paused){
-            this.currentTime = +new Date();
             this.scroxtVideo.play();
             this.intervalRun();
-        }else{
+        }
+    }
+
+    /**
+     * 视频暂停
+     */
+    stop(){
+        if(!this.scroxtVideo.paused){
             this.scroxtVideo.pause();
             this.intervalStop();
         }
     }
 
     /**
+     * 视频重播
+     */
+    restart(){
+        this.readyShowBarrage = [];
+        this.tempDataTime = JSON.parse(JSON.stringify(this.dataTime));
+        this.scroxtVideo.currentTime = 0;
+        this.barrageWrap.forEach((value,index) => {
+            const parentElement = value["element"].parentNode;
+            if(parentElement) parentElement.removeChild(value["element"]);
+        });
+        this.barrageWrap = [];
+    }
+
+    /**
+     * [moveInterval 前进或后退的秒数，正数表示快进s秒，负数表示后退s秒]
+     * @param {number=0} s [快进的秒数]
+     */
+    moveInterval(s:number=0){
+        this.readyShowBarrage = [];
+        this.tempDataTime = JSON.parse(JSON.stringify(this.dataTime));
+        this.scroxtVideo.currentTime += s;
+        this.barrageWrap.forEach((value,index) => {
+            const parentElement = value["element"].parentNode;
+            if(parentElement) parentElement.removeChild(value["element"]);
+        });
+        this.barrageWrap = [];
+    }
+
+
+
+    /**
      * [timeUpdate 播放时间更新]
      */
     timeUpdate(){
-        this.sumTime += ((+new Date()) - this.currentTime)/1000;
-        this.currentTime = +new Date();
-        this.distribution(this.sumTime);
+        this.scroxtVideo.addEventListener("timeupdate",function(){
+            this.distribution(this.scroxtVideo.currentTime);
+        }.bind(this));
     }
 
     /**
     * 分配弹幕，决定弹幕出场
     */
-    distribution(sumTime){
+    distribution(currentTime){
         let len = this.tempDataTime.length;
         let i = 0;
         while(len !== 0){
-            if(this.tempDataTime[i].time < sumTime){
-                this.readyShowBarrage.push(this.tempDataTime[i]["data"]);
+            if(this.tempDataTime[i].time < currentTime){
+                if(this.tempDataTime[i].time >= currentTime-2) this.readyShowBarrage.push(this.tempDataTime[i]["data"]);
                 this.tempDataTime.shift();
                 len = this.tempDataTime.length;
             }else{
@@ -413,9 +382,6 @@ class Barrage extends Event{
         this.runST = setTimeTask(function(){
             this.createBarrage();
             this.moveLine();
-            if(!this.scroxtVideo.paused){
-                this.timeUpdate();
-            }
             this.intervalRun();
         }.bind(this));
     }

@@ -1,7 +1,7 @@
 README
 =======================================
 ## scroxt.js   Overview
-scroxt.js是一个字体滚动的插件库，包括弹幕滚动，单行水平左右滚动、文本垂直滚动上下，用于简单快捷生成滚动字体。性能优秀，通过CPU加速，缓存字体元素，帧运动，达到最流畅的效果。兼容Chrome、Firefox、Opera、IE9及IE9以上浏览器。
+scroxt.js是一个字体滚动的插件库，包括视频弹幕滚动，直播弹幕、直播弹幕强制模式、单行水平左右滚动、文本垂直滚动上下，用于简单快捷生成滚动字体。性能优秀，通过CPU加速，缓存字体元素，帧运动，达到最流畅的效果。兼容Chrome、Firefox、Opera、IE9及IE9以上浏览器。
 
 <!-- [scroxt.js官网](http:sztinghao.top)  -->
 
@@ -11,6 +11,9 @@ scroxt.js是一个字体滚动的插件库，包括弹幕滚动，单行水平�
 npm install --save scroxt
 
 ```
+## 更新
+2017.11.08 视频弹幕增加播放，暂停，重播，快进，快退接口。详细查看"三、视频弹幕"
+
 
 ## Getting Started
 
@@ -60,10 +63,13 @@ new scroxt.Vertical({
           <source src="http://14.215.100.242/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4" type='video/mp4'>
         </video>
     </div>
+    <div class="play">播放</div>
+    <div class="pause">暂停</div>
+    <div class="fast-forward">快进</div>
 </div>
 <script type="text/javascript" src="./dist/js/scroxt.js"></script>
 <script type="text/javascript">
-	new scroxt.Barrage({
+	var scroxtBarrage = new scroxt.Barrage({
 	    video: "#my-video",
 	    dataTime: [{
 	    	data:"第一条弹幕",
@@ -76,14 +82,33 @@ new scroxt.Vertical({
 	    	time:2
 	    }]
 	});
+	//播放
+	document.querySelector(".play").addEventListener("click",function(){
+	    scroxtBarrage.play();
+	});
+	//暂停
+	document.querySelector(".pause").addEventListener("click",function(){
+	    scroxtBarrage.stop();
+	});
+	//前进5s
+	document.querySelector(".fast-forward").addEventListener("click",function(){
+	    scroxtBarrage.moveInterval(5);
+	});
 </script>
 ...
 
 ```
 
-参数：
+scroxt.Barrage参数：
 - video：视频标签的css选择器
-- dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间/秒单位(video播放的时间)
+- dataTime：弹幕数组，数组每一项由data和time字段组成，data是每条弹幕的内容，time是弹幕出现的时间/秒单位(video播放的时间);
+
+scroxt.Barrage实例参数：
+-play(): 开始播放
+-stop(): 暂停播放
+-restart(): 重新播放
+-moveInterval(s): 快进s秒
+-moveInterval(-s): 后退s秒
 
 #### 四-1、直播弹幕
 
@@ -134,3 +159,5 @@ setTimeout(function(){
 </script>
 
 ```
+
+联系作者：qq-1737752975

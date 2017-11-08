@@ -3,16 +3,47 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <style>
+        .my-box{
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .my-controlor-bar{
+            display: block;
+            margin-top: 20px;
+        }
+        .my-controlor-bar div{
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid;
+            cursor: pointer;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
 
 <!-- 弹幕 -->
-<div class="scroll-box-barrage">
-    <div class="scroxt-video-barrage">
-        <!-- <video class="scroxt-video" src="../lib/game.mp4"></video> -->
+<div>
+    <div class="my-box">
         <video id="my-video" preload="auto" width="640" height="auto">
           <source src="http://14.215.100.242/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4" type='video/mp4'>
         </video>
+        <div class="my-controlor-bar">
+            <div class="play">播放</div>
+            <div class="pause">暂停</div>
+            <div class="restart">重播</div>
+            <div class="fast-forward">快进</div>
+            <div class="rewind">快退</div>
+        </div>
+        <p class="control-msg"></p>
     </div>
 </div>
 
@@ -20,10 +51,10 @@
 <script>
     var dataFont = ["我","你","来","好","是","哦","吧","爱","","去","哪"];
     var len = dataFont.length;
-    var maxTime = 10;
+    var maxTime = 20;
     var dataTime = [];
 
-    for(var i = 0; i < 1000; i++){
+    for(var i = 0; i < 50; i++){
         var ll = ~~(Math.random()*len);
         var str = "";
         for(var j = 0; j < ll; j++){
@@ -32,14 +63,40 @@
         }
         var time = ~~(Math.random()*maxTime);
         dataTime.push({
-            data:str,
+            data:time+':'+str,
             time:time
         });
     }
     console.log(dataTime);
-    new scroxt.Barrage({
+    var scroxtBarrage = new scroxt.Barrage({
         video: "#my-video",
         dataTime: dataTime
+    });
+
+    //播放
+    document.querySelector(".play").addEventListener("click",function(){
+        document.querySelector(".control-msg").innerHTML = '开始播放';
+        scroxtBarrage.play();
+    });
+    //暂停
+    document.querySelector(".pause").addEventListener("click",function(){
+        document.querySelector(".control-msg").innerHTML = '暂停';
+        scroxtBarrage.stop();
+    });
+    //重播
+    document.querySelector(".restart").addEventListener("click",function(){
+        document.querySelector(".control-msg").innerHTML = '重新播放';
+        scroxtBarrage.restart();
+    });
+    //前进5s
+    document.querySelector(".fast-forward").addEventListener("click",function(){
+        document.querySelector(".control-msg").innerHTML = '前进5秒';
+        scroxtBarrage.moveInterval(5);
+    });
+    //后退5s
+    document.querySelector(".rewind").addEventListener("click",function(){
+        document.querySelector(".control-msg").innerHTML = '后退5秒';
+        scroxtBarrage.moveInterval(-5);
     });
 </script>
 </body>

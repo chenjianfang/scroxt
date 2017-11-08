@@ -25,16 +25,6 @@ declare class Barrage extends Event {
      */
     private distance;
     /**
-     * [currentTime 当前时间 \s]
-     * @type {number}
-     */
-    private currentTime;
-    /**
-     * [sumTime 播放了的时间 \s]
-     * @type {number}
-     */
-    private sumTime;
-    /**
      * [videoEnd 视频播放结束状态 true为播放结束]
      * @type {Boolean}
      */
@@ -100,21 +90,22 @@ declare class Barrage extends Event {
     createStyle(): void;
     startRun(): void;
     /**
+     * 视频播放
+     */
+    play(): void;
+    /**
+     * 视频暂停
+     */
+    stop(): void;
+    /**
      * 视频重播
      */
     restart(): void;
     /**
-     * 视频加载到可以播放，点击播放
+     * [moveInterval 前进或后退的秒数，正数表示快进s秒，负数表示后退s秒]
+     * @param {number=0} s [快进的秒数]
      */
-    playEvent(): void;
-    /**
-     * [videoClickEvent videoElement绑定点击事件]
-     */
-    videoClickEvent(): void;
-    /**
-     * 视频播放暂停
-     */
-    videoStatusMethod(): void;
+    moveInterval(s?: number): void;
     /**
      * [timeUpdate 播放时间更新]
      */
@@ -122,7 +113,7 @@ declare class Barrage extends Event {
     /**
     * 分配弹幕，决定弹幕出场
     */
-    distribution(sumTime: any): void;
+    distribution(currentTime: any): void;
     /**
      * [createBarrage 创建弹幕from readyShowBarrage]
      */
