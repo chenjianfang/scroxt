@@ -1249,6 +1249,7 @@ scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["default"];
  */
 scroxt.Live = __WEBPACK_IMPORTED_MODULE_3__live__["default"];
 window.scroxt = scroxt;
+/* harmony default export */ __webpack_exports__["default"] = (scroxt);
 
 
 /***/ })

@@ -6,6 +6,13 @@ scroxt.js是一个字体滚动的插件库，包括视频弹幕滚动，直播�
 <!-- [scroxt.js官网](http:sztinghao.top)  -->
 
 ## Installation
+In a browser:
+
+```
+<script src="scroxt.min.js"></script>
+```
+
+Using npm
 
 ```
 npm install --save scroxt
