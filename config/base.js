@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const glob = require('glob');
@@ -19,7 +18,7 @@ let entryHTMLFile = {};
 
 
 //js dev,prod生成到不同的目录
-const filename = process.env.NODE_ENV === 'dev'? 'js/[name].js': 'minjs/[name].js'
+const filename = process.env.NODE_ENV === 'dev'? 'js/[name].js': 'minjs/[name].min.js'
 
 var base = {
     entry:entryFile,
@@ -43,12 +42,6 @@ var base = {
                     }
                 }
             },{
-                test: /\.(css|scss|less)$/,
-                loader:ExtractTextPlugin.extract({
-                    fallback:'style-loader',
-                    use:['css-loader','sass-loader','less-loader']
-                })
-            },{
                 test: /\.html$/,
                 exclude:[/node_modules/],
                 use:{
@@ -64,18 +57,6 @@ var base = {
         ]
     },
     plugins:[
-        //抽离js的css生成单独的css
-        new ExtractTextPlugin('css/[name].css'),
-
-        //删除dist文件
-        // new CleanWebpackPlugin(
-        //     ['js','css'],
-        //     {
-        //         root: path.join(__dirname, '/../dist/'),
-        //         verbose: true,
-        //         dry: false,
-        //     }
-        // ),
 
         new TsConfigPathsPlugin({
             configFileName:"../tsconfig.json"
