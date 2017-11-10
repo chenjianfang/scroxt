@@ -8,7 +8,7 @@
  */
 export default function addStyleCSS(cssText){
 	const style = <any>document.createElement('style'),
-		head = document.head || document.getElementsByTagName('head')[0];
+		 head = document.head || document.getElementsByTagName('head')[0];
 	style.type = 'text/css';
 	if(style.styleSheet){ //IE
 		const func = function(){

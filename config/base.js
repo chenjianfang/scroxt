@@ -8,7 +8,7 @@ const glob = require('glob');
 
 let entryFile = {};
 function getEntry (){
-    var jsFile = glob.sync("./src/**/*.ts");
+    var jsFile = glob.sync("./src/**/scroxt.ts");
     jsFile.forEach(function(value){
         entryFile[value.slice(value.indexOf("src/ts")+7).replace(/.ts/,"")] = value;
     });
@@ -25,7 +25,8 @@ var base = {
     output:{
         path: path.join(__dirname, '/../dist/'),
         publicPath: '/dist/',
-        filename: filename
+        filename: filename,
+        libraryTarget:'umd'
     },
     resolve:{
         extensions: ['.ts','.js'],
@@ -39,15 +40,6 @@ var base = {
                     loader: 'babel-loader',
                     options: {
                       presets: ['es2015']
-                    }
-                }
-            },{
-                test: /\.html$/,
-                exclude:[/node_modules/],
-                use:{
-                    loader:'file-loader',
-                    query:{
-                        name:'[name].[ext]'
                     }
                 }
             },{

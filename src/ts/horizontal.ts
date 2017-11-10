@@ -83,7 +83,16 @@ import addStyleCSS from './internal/addStyleCSS';
         this.targetWidth = parseFloat(getEleAttr(this.targetElement,'width'));
         this.targetElementBorderWidth = parseFloat(getEleAttr(this.targetElement,'border-width'));
         this.createHorizontal();
-        if(this.divWrapElementWidth < this.targetWidth) return;
+        //当内容宽度小于盒子宽度
+        if(this.divWrapElementWidth/2 < this.targetWidth){
+            removeElement(".scroxt-wrapper");
+            const ElementArr = this.createElement("scroxt-horizontal");
+            this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
+            let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
+            divWrapElement.style.width = this.divWrapElementWidth + 'px';
+            divWrapElement.style.marginLeft = "0px";
+            return;
+        };
         this.STRun();
     }
 

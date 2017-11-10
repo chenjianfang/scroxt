@@ -6,11 +6,6 @@ scroxt.js是一个字体滚动的插件库，包括视频弹幕滚动，直播�
 <!-- [scroxt.js官网](http:sztinghao.top)  -->
 
 ## Installation
-In a browser:
-
-```
-<script src="scroxt.min.js"></script>
-```
 
 Using npm
 
@@ -18,8 +13,23 @@ Using npm
 npm install --save scroxt
 
 ```
+
+In a browser:
+
+```
+<script src="scroxt.min.js"></script>
+```
+
+In a webpack
+
+```
+import scroxt form "scroxt"
+```
+
+
 ## 更新
 2017.11.08 视频弹幕增加播放，暂停，重播，快进，快退接口。详细查看[视频弹幕](https://github.com/chenjianfang/scroxt#三视频弹幕)
+
 2017.11.10 垂直、水平滚动增加限制，只有两倍的内容的高度或者宽度才会滚动。水平滚动增加gap字段，gap指定水平滚动每条内容的间隔，默认10
 
 

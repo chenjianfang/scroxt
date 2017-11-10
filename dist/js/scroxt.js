@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -60,7 +70,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,31 +78,6 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = isDOM;
-/**
- * @param {Element} ele:判断元素
- * @returns {Boolean} true:是元素节点，false:不是
- * @example
- *
- * isDOM(document.body)
- */
-function isDOM(ele) {
-    if (ele && ele.nodeType) {
-        return ele.nodeType === 1;
-    }
-    else {
-        return false;
-    }
-}
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /**
  * 设置定时器profix
  *
@@ -111,17 +96,16 @@ var setTimeTask = (function () {
             window.setTimeout(callback, 1000 / 60);
         };
 })();
-/* harmony default export */ __webpack_exports__["default"] = (setTimeTask);
+/* harmony default export */ __webpack_exports__["a"] = (setTimeTask);
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = getEleAttr;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(0);
+/* harmony export (immutable) */ __webpack_exports__["a"] = getEleAttr;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(4);
 
 /**
  * @param {any} css selector
@@ -134,7 +118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  *
  */
 function getEleAttr(ele, attr) {
-    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["default"])(ele)) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["a" /* default */])(ele)) {
         return window.getComputedStyle(ele, null).getPropertyValue(attr);
     }
     else if (typeof ele === 'string' && document.querySelector(ele)) {
@@ -144,12 +128,11 @@ function getEleAttr(ele, attr) {
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = addStyleCSS;
+/* harmony export (immutable) */ __webpack_exports__["a"] = addStyleCSS;
 /**
  * @param {string} cssText css文本字符串
  * @returns void
@@ -187,32 +170,10 @@ function addStyleCSS(cssText) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/**
- * 取消定时器profix
- *
- * 例子
- *
- * clearTimeTask(st);
- */
-var clearTimeTask = (function () {
-    return window.cancelAnimationFrame ||
-        window.mozCancelAnimationFrame ||
-        window.clearTimeout;
-})();
-/* harmony default export */ __webpack_exports__["default"] = (clearTimeTask);
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /**
  * class root
  * @param {string} target: 插入滚动弹幕的元素
@@ -284,17 +245,39 @@ var root = /** @class */ (function () {
     };
     return root;
 }());
-/* harmony default export */ __webpack_exports__["default"] = (root);
+/* harmony default export */ __webpack_exports__["a"] = (root);
 
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = removeElement;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(0);
+/* harmony export (immutable) */ __webpack_exports__["a"] = isDOM;
+/**
+ * @param {Element} ele:判断元素
+ * @returns {Boolean} true:是元素节点，false:不是
+ * @example
+ *
+ * isDOM(document.body)
+ */
+function isDOM(ele) {
+    if (ele && ele.nodeType) {
+        return ele.nodeType === 1;
+    }
+    else {
+        return false;
+    }
+}
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = removeElement;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(4);
 
 /**
  * @param {Element} ele:删除的元素的css选择器
@@ -305,7 +288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * removeElement("[data-id='2014']")
  */
 function removeElement(ele) {
-    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["default"])(ele)) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["a" /* default */])(ele)) {
         ele.parentNode.removeChild(ele);
     }
     else if (typeof ele === 'string' && document.querySelector(ele)) {
@@ -319,67 +302,128 @@ function removeElement(ele) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /**
- * 事件
+ * 取消定时器profix
  *
  * 例子
  *
  * clearTimeTask(st);
  */
-var Event = /** @class */ (function () {
-    function Event() {
-        /**
-         * [event 事件容器]
-         * @type {EventInterface}
-         */
-        this.events = {};
-    }
-    /**
-     * [on 添加事件]
-     * @param {[type]} type [事件名]
-     * @param {[type]} foo  [执行函数]
-     */
-    Event.prototype.on = function (type, foo) {
-        if (!this.events[type]) {
-            this.events[type] = [foo];
-        }
-        else {
-            this.events[type].push(foo);
-        }
-    };
-    /**
-     * [off 删除事件函数]
-     * @param {[type]} type [事件名]
-     * @param {[type]} foo  [执行函数]
-     */
-    Event.prototype.off = function (type, foo) {
-        this.events[type].splice(this.events[type].indexOf(foo), 1);
-    };
-    /**
-     * [empty 清空事件函数]
-     * @param {[type]} type [事件名]
-     */
-    Event.prototype.empty = function (type) {
-        this.events[type] = [];
-    };
-    /**
-     * [triggle 触发执行事件]
-     * @param {[type]} type [事件名]
-     */
-    Event.prototype.triggle = function (type) {
-        var foo = this.events[type];
-        foo.forEach(function (value) {
-            value();
-        });
-    };
-    return Event;
-}());
-/* harmony default export */ __webpack_exports__["default"] = (Event);
+var clearTimeTask = (function () {
+    return window.cancelAnimationFrame ||
+        window.mozCancelAnimationFrame ||
+        window.clearTimeout;
+})();
+/* harmony default export */ __webpack_exports__["a"] = (clearTimeTask);
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(12);
+
+
+
+
+/**
+ * [scroxt scroxt全局对象]
+ * @type {any}
+ */
+var scroxt = {};
+/**
+ * class Horizontal 水平滚动
+ * @param {target:string,data:string[],speed:number} obj 类构造参数
+ * target:target目标容器的css选择器。data:数据的数组，speed：弹幕滚动速度[0-10]
+ * @returns voild
+ * @example
+ *
+ * new scroxt.Horizontal({
+ *     target: ".my-ele",
+ *     data: ['第一条','第2条','第3条'],
+ *     speed: -5
+ * });
+ */
+scroxt.Horizontal = __WEBPACK_IMPORTED_MODULE_0__horizontal__["a" /* default */];
+/**
+ * class Vertical 垂直滚动
+ * @param {target:string,data:string[],speed:number} obj 类构造参数
+ * target:target目标容器的css选择器。data:数据的数组，speed：弹幕滚动速度[0-10]
+ * @returns voild
+ * @example
+ *
+ * new scroxt.Vertical({
+ *     target: ".my-ele",
+ *     data: ['第一条','第2条','第3条'],
+ *     speed: -5
+ * });
+ */
+scroxt.Vertical = __WEBPACK_IMPORTED_MODULE_1__vertical__["a" /* default */];
+/**
+ * class Barrage
+ * @param {video: string,dataTime: {data:string,time:number}[]} obj 类构造参数
+ * video:video标签的css选择器。dataTime:数据的数组对象，data:弹幕的内容，time弹幕出现的时间(单位/秒)
+ * @returns voild
+ * @example
+ *
+ * new scroxt.Barrage({
+ *     video: "#my-video",
+ *     dataTime: [{
+ *         data:"第一条",  // 第一条弹幕
+ *         time:1          // 第一条弹幕出现的时间 1秒
+ *     },{
+ *         data:"第二条",  // 第二条弹幕
+ *         time:1		   // 第一条弹幕出现的时间 1秒
+ *     },{
+ *         data:"第三条",  // 第三条弹幕
+ *         time:2          // 第一条弹幕出现的时间 2秒
+ *     }]
+ * });
+ */
+scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["a" /* default */];
+/**
+ * class Barrage
+ * @param {target: string,strongLock: boolean} obj 类构造参数
+ * target:target标签的css选择器。[strongLock]:强制模式，默认false
+ * @returns voild
+ * @example
+ *
+ *1.非强制模式，所有弹幕都会出现，但是某些浏览器可能会因为弹幕数量过多导致卡顿
+ * var scroxtLive = new scroxt.Live({
+ *     target: ".scroxt-video-barrage"
+ * });
+ *scroxtLive.addBarrage("第一条弹幕");
+ *scroxtLive.addBarrage("第二条弹幕");
+ *
+ *2.强制模式，页面最多出现65条弹幕.页面当有65条弹幕的时候，添加的任何弹幕将会扔掉直至屏幕中的弹幕消失
+ * new scroxt.Live({
+ *     target: ".scroxt-video-barrage",
+ *     strongLock: true
+ * });
+ *scroxtLive.addBarrage("第一条弹幕");
+ *scroxtLive.addBarrage("第二条弹幕");
+ *
+ *3.强制模式，强制模式下，由于弹幕可能会被扔掉，但用户自己发弹幕不能扔！！！用户本人发的弹幕addBarrage第二个参数为true。已达到欺骗效果
+ * new scroxt.Live({
+ *     target: ".scroxt-video-barrage",
+ *     strongLock: true
+ * });
+ *scroxtLive.addBarrage("这是我自己的弹幕,只有用户本人能看到",true);
+ *
+ *
+ */
+scroxt.Live = __WEBPACK_IMPORTED_MODULE_3__live__["a" /* default */];
+window.scroxt = scroxt;
+/* harmony default export */ __webpack_exports__["default"] = (scroxt);
 
 
 /***/ }),
@@ -387,12 +431,287 @@ var Event = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(2);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+
+/**
+ * class Horizontal
+ * @returns voild
+ */
+var Horizontal = /** @class */ (function (_super) {
+    __extends(Horizontal, _super);
+    function Horizontal(_a) {
+        var target = _a.target, data = _a.data, speed = _a.speed, _b = _a.gap, gap = _b === void 0 ? 20 : _b;
+        var _this = _super.call(this, { target: target, data: data, speed: speed }) || this;
+        /**
+         * [sumWidth 水平滚动元素总宽度]
+         * @type {number}
+         */
+        _this.sumWidth = 0;
+        /**
+         * [distance 移动的距离]
+         * @type {number}
+         */
+        _this.distance = 0;
+        /**
+         * [targetWidth target宽度]
+         * @type {number}
+         */
+        _this.targetWidth = 0;
+        /**
+         * [divWrapElementWidth 元素总宽度]
+         * @type {number}
+         */
+        _this.divWrapElementWidth = 0;
+        /**
+         * [targetElementBorderWidth target border width]
+         * @type {number}
+         */
+        _this.targetElementBorderWidth = 0;
+        _this.scroxtGap = gap;
+        _this.createStyle();
+        _this.init();
+        return _this;
+    }
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    Horizontal.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n            }\n        ");
+    };
+    /**
+     * [init 入口]
+     */
+    Horizontal.prototype.init = function () {
+        this.targetWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(this.targetElement, 'width'));
+        this.targetElementBorderWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(this.targetElement, 'border-width'));
+        this.createHorizontal();
+        //当内容宽度小于盒子宽度
+        if (this.divWrapElementWidth / 2 < this.targetWidth) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+            var ElementArr = this.createElement("scroxt-horizontal");
+            this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
+            var divWrapElement = document.querySelector(".scroxt-wrapper");
+            divWrapElement.style.width = this.divWrapElementWidth + 'px';
+            divWrapElement.style.marginLeft = "0px";
+            return;
+        }
+        ;
+        this.STRun();
+    };
+    /**
+     * [createHorizontal 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:水平滚动元素集
+     */
+    Horizontal.prototype.createHorizontal = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+        var ElementArr1 = this.createElement("scroxt-horizontal");
+        var ElementArr2 = this.createElement("scroxt-horizontal");
+        var ElementArr = ElementArr1.concat(ElementArr2);
+        this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
+        var divWrapElement = document.querySelector(".scroxt-wrapper");
+        divWrapElement.style.width = this.divWrapElementWidth + 'px';
+        return divWrapElement;
+    };
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    Horizontal.prototype.computeWidth = function (ElementArr) {
+        var width = 0;
+        for (var i = 0, len = ElementArr.length; i < len; i++) {
+            width += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(ElementArr[i], "width").replace("px", "")));
+        }
+        return width;
+    };
+    /**
+     * [STRun 定时运行]
+     */
+    Horizontal.prototype.STRun = function () {
+        this.STMove();
+        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["a" /* default */])(function () {
+            this.STRun();
+        }.bind(this));
+    };
+    /**
+     * [STMove 单位帧移动]
+     */
+    Horizontal.prototype.STMove = function () {
+        var divWrapElement = document.querySelector(".scroxt-wrapper");
+        var rectObj = divWrapElement.getBoundingClientRect();
+        var divWrapElementHalfPosition = rectObj.left + (rectObj.right - rectObj.left) / 2;
+        var targetRect = this.targetElement.getBoundingClientRect();
+        if (this.options.speed < 0) {
+            var targetLeftPosition = targetRect.left + this.targetElementBorderWidth;
+            if (divWrapElementHalfPosition + this.options.speed * 0.1 <= targetLeftPosition) {
+                this.distance = 0;
+                divWrapElement = this.createHorizontal();
+                divWrapElement.style.left = "0px";
+                divWrapElement.style.marginLeft = "0px";
+            }
+        }
+        else {
+            var targetRightPosition = targetRect.right - this.targetElementBorderWidth * 2;
+            if (divWrapElementHalfPosition + this.options.speed * 0.1 >= targetRightPosition) {
+                this.distance = -this.divWrapElementWidth + this.targetWidth;
+                divWrapElement = this.createHorizontal();
+                divWrapElement.style.right = "0px";
+                divWrapElement.style.marginRight = "0px";
+            }
+        }
+        divWrapElement.style.transform = "translate3d(" + this.distance + "px, 0px, 0px)";
+        divWrapElement.style.webkitTransform = "translate3d(" + this.distance + "px, 0px, 0px)";
+        this.distance += this.options.speed * 0.1;
+    };
+    return Horizontal;
+}(__WEBPACK_IMPORTED_MODULE_0__root__["a" /* default */]));
+/* harmony default export */ __webpack_exports__["a"] = (Horizontal);
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+/**
+ * class Vertical   垂直滚动
+ * @returns voild
+ */
+var Vertical = /** @class */ (function (_super) {
+    __extends(Vertical, _super);
+    function Vertical(opt) {
+        var _this = _super.call(this, opt) || this;
+        /**
+         * [targetHeight target高度]
+         * @type {number}
+         */
+        _this.targetHeight = 0;
+        /**
+         * [divWrapElementHeight 元素总宽度]
+         * @type {number}
+         */
+        _this.divWrapElementHeight = 0;
+        /**
+         * [distance 移动的距离]
+         * @type {number}
+         */
+        _this.distance = 0;
+        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(_this.targetElement, 'height'));
+        _this.startRun();
+        return _this;
+    }
+    Vertical.prototype.startRun = function () {
+        this.divWrapElementHeight = this.createVertical();
+        if (this.targetHeight > this.divWrapElementHeight / 2) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+            this.createElement("scroxt-vertical");
+            return;
+        }
+        ;
+        this.STRun();
+    };
+    /**
+     * [createVertical 创建水平滚动元素]
+     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
+     */
+    Vertical.prototype.createVertical = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+        var verticalArr1 = this.createElement("scroxt-vertical");
+        var verticalArr2 = this.createElement("scroxt-vertical");
+        this.divWrapElement = document.querySelector(".scroxt-wrapper");
+        var divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
+        return divWrapElementHeight;
+    };
+    /**
+     * [computeWidth 计算元素宽度]
+     * @param {Array<HTMLElement>} ElementArr [元素集合]
+     */
+    Vertical.prototype.computeHeight = function (ElementArr) {
+        var height = 0;
+        for (var i = 0, len = ElementArr.length; i < len; i++) {
+            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(ElementArr[i], "height").replace("px", "")));
+        }
+        return height;
+    };
+    /**
+     * [STRun 定时器]
+     */
+    Vertical.prototype.STRun = function () {
+        this.STMove();
+        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["a" /* default */])(function () {
+            this.STRun();
+        }.bind(this));
+    };
+    /**
+     * [STMove 一帧移动]
+     */
+    Vertical.prototype.STMove = function () {
+        if (this.options.speed < 0) {
+            if (this.distance <= -this.divWrapElementHeight / 2) {
+                this.createVertical();
+                this.distance = 0;
+            }
+        }
+        else {
+            if (this.distance >= this.targetHeight - this.divWrapElementHeight / 2) {
+                this.createVertical();
+                this.distance = this.targetHeight - this.divWrapElementHeight;
+            }
+        }
+        this.divWrapElement.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.distance += this.options.speed * 0.1;
+    };
+    return Vertical;
+}(__WEBPACK_IMPORTED_MODULE_0__root__["a" /* default */]));
+/* harmony default export */ __webpack_exports__["a"] = (Vertical);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(2);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -446,8 +765,8 @@ var Barrage = /** @class */ (function (_super) {
         console.log(_this.dataTime);
         _this.tempDataTime = JSON.parse(JSON.stringify(_this.dataTime));
         _this.lineHeight = 28;
-        _this.videoWidth = parseInt(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.video, "width"));
-        _this.MAX_LINE = ~~(parseInt(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.video, "height")) / _this.lineHeight);
+        _this.videoWidth = parseInt(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(_this.video, "width"));
+        _this.MAX_LINE = ~~(parseInt(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(_this.video, "height")) / _this.lineHeight);
         _this.MAX_NUM = 50;
         _this.distance = -5;
         _this.colorFont = ['#ffff38', '#c80115', '#189add'];
@@ -479,7 +798,7 @@ var Barrage = /** @class */ (function (_super) {
      * [createStyle 创建内嵌css]
      */
     Barrage.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n            .static-barrage-line{\n              position: absolute;\n              left: 50%;\n              transform:translateX(-50%);\n              -webkit-transform:translateX(-50%);\n              top: 0;\n              z-index: 2;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["a" /* default */])("\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n            .static-barrage-line{\n              position: absolute;\n              left: 50%;\n              transform:translateX(-50%);\n              -webkit-transform:translateX(-50%);\n              top: 0;\n              z-index: 2;\n            }\n        ");
     };
     Barrage.prototype.startRun = function () {
         //添加类名：scroxt-video
@@ -661,7 +980,7 @@ var Barrage = /** @class */ (function (_super) {
         }
     };
     Barrage.prototype.intervalRun = function () {
-        this.runST = Object(__WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__["default"])(function () {
+        this.runST = Object(__WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__["a" /* default */])(function () {
             this.createBarrage();
             this.moveLine();
             this.intervalRun();
@@ -671,174 +990,85 @@ var Barrage = /** @class */ (function (_super) {
      * 停止播放
      */
     Barrage.prototype.intervalStop = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__["default"])(this.runST);
+        Object(__WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__["a" /* default */])(this.runST);
     };
     return Barrage;
-}(__WEBPACK_IMPORTED_MODULE_3__internal_Event__["default"]));
-/* harmony default export */ __webpack_exports__["default"] = (Barrage);
+}(__WEBPACK_IMPORTED_MODULE_3__internal_Event__["a" /* default */]));
+/* harmony default export */ __webpack_exports__["a"] = (Barrage);
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-
-
 /**
- * class Horizontal
- * @returns voild
+ * 事件
+ *
+ * 例子
+ *
+ * clearTimeTask(st);
  */
-var Horizontal = /** @class */ (function (_super) {
-    __extends(Horizontal, _super);
-    function Horizontal(_a) {
-        var target = _a.target, data = _a.data, speed = _a.speed, _b = _a.gap, gap = _b === void 0 ? 20 : _b;
-        var _this = _super.call(this, { target: target, data: data, speed: speed }) || this;
+var Event = /** @class */ (function () {
+    function Event() {
         /**
-         * [sumWidth 水平滚动元素总宽度]
-         * @type {number}
+         * [event 事件容器]
+         * @type {EventInterface}
          */
-        _this.sumWidth = 0;
-        /**
-         * [distance 移动的距离]
-         * @type {number}
-         */
-        _this.distance = 0;
-        /**
-         * [targetWidth target宽度]
-         * @type {number}
-         */
-        _this.targetWidth = 0;
-        /**
-         * [divWrapElementWidth 元素总宽度]
-         * @type {number}
-         */
-        _this.divWrapElementWidth = 0;
-        /**
-         * [targetElementBorderWidth target border width]
-         * @type {number}
-         */
-        _this.targetElementBorderWidth = 0;
-        _this.scroxtGap = gap;
-        _this.createStyle();
-        _this.init();
-        return _this;
+        this.events = {};
     }
     /**
-     * [createStyle 创建内嵌css]
+     * [on 添加事件]
+     * @param {[type]} type [事件名]
+     * @param {[type]} foo  [执行函数]
      */
-    Horizontal.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n            }\n        ");
-    };
-    /**
-     * [init 入口]
-     */
-    Horizontal.prototype.init = function () {
-        this.targetWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(this.targetElement, 'width'));
-        this.targetElementBorderWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(this.targetElement, 'border-width'));
-        this.createHorizontal();
-        if (this.divWrapElementWidth < this.targetWidth)
-            return;
-        this.STRun();
-    };
-    /**
-     * [createHorizontal 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:水平滚动元素集
-     */
-    Horizontal.prototype.createHorizontal = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["default"])(".scroxt-wrapper");
-        var ElementArr1 = this.createElement("scroxt-horizontal");
-        var ElementArr2 = this.createElement("scroxt-horizontal");
-        var ElementArr = ElementArr1.concat(ElementArr2);
-        this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
-        var divWrapElement = document.querySelector(".scroxt-wrapper");
-        divWrapElement.style.width = this.divWrapElementWidth + 'px';
-        return divWrapElement;
-    };
-    /**
-     * [computeWidth 计算元素宽度]
-     * @param {Array<HTMLElement>} ElementArr [元素集合]
-     */
-    Horizontal.prototype.computeWidth = function (ElementArr) {
-        var width = 0;
-        for (var i = 0, len = ElementArr.length; i < len; i++) {
-            width += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(ElementArr[i], "width").replace("px", "")));
-        }
-        return width;
-    };
-    /**
-     * [STRun 定时运行]
-     */
-    Horizontal.prototype.STRun = function () {
-        this.STMove();
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["default"])(function () {
-            this.STRun();
-        }.bind(this));
-    };
-    /**
-     * [STMove 单位帧移动]
-     */
-    Horizontal.prototype.STMove = function () {
-        var divWrapElement = document.querySelector(".scroxt-wrapper");
-        var rectObj = divWrapElement.getBoundingClientRect();
-        var divWrapElementHalfPosition = rectObj.left + (rectObj.right - rectObj.left) / 2;
-        var targetRect = this.targetElement.getBoundingClientRect();
-        if (this.options.speed < 0) {
-            var targetLeftPosition = targetRect.left + this.targetElementBorderWidth;
-            if (divWrapElementHalfPosition + this.options.speed * 0.1 <= targetLeftPosition) {
-                this.distance = 0;
-                divWrapElement = this.createHorizontal();
-                divWrapElement.style.left = "0px";
-                divWrapElement.style.marginLeft = "0px";
-            }
+    Event.prototype.on = function (type, foo) {
+        if (!this.events[type]) {
+            this.events[type] = [foo];
         }
         else {
-            var targetRightPosition = targetRect.right - this.targetElementBorderWidth * 2;
-            if (divWrapElementHalfPosition + this.options.speed * 0.1 >= targetRightPosition) {
-                this.distance = -this.divWrapElementWidth + this.targetWidth;
-                divWrapElement = this.createHorizontal();
-                divWrapElement.style.right = "0px";
-                divWrapElement.style.marginRight = "0px";
-            }
+            this.events[type].push(foo);
         }
-        divWrapElement.style.transform = "translate3d(" + this.distance + "px, 0px, 0px)";
-        divWrapElement.style.webkitTransform = "translate3d(" + this.distance + "px, 0px, 0px)";
-        this.distance += this.options.speed * 0.1;
     };
-    return Horizontal;
-}(__WEBPACK_IMPORTED_MODULE_0__root__["default"]));
-/* harmony default export */ __webpack_exports__["default"] = (Horizontal);
+    /**
+     * [off 删除事件函数]
+     * @param {[type]} type [事件名]
+     * @param {[type]} foo  [执行函数]
+     */
+    Event.prototype.off = function (type, foo) {
+        this.events[type].splice(this.events[type].indexOf(foo), 1);
+    };
+    /**
+     * [empty 清空事件函数]
+     * @param {[type]} type [事件名]
+     */
+    Event.prototype.empty = function (type) {
+        this.events[type] = [];
+    };
+    /**
+     * [triggle 触发执行事件]
+     * @param {[type]} type [事件名]
+     */
+    Event.prototype.triggle = function (type) {
+        var foo = this.events[type];
+        foo.forEach(function (value) {
+            value();
+        });
+    };
+    return Event;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (Event);
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(6);
 
 
 
@@ -892,8 +1122,8 @@ var Live = /** @class */ (function () {
         this.runST = 0;
         this.targetElement = document.querySelector(target);
         this.strongLock = strongLock;
-        this.TARGET_WIDTH = parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["default"])(this.targetElement, "width"));
-        this.MAX_LINE = ~~(parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["default"])(this.targetElement, "height")) / this.lineHeight);
+        this.TARGET_WIDTH = parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["a" /* default */])(this.targetElement, "width"));
+        this.MAX_LINE = ~~(parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["a" /* default */])(this.targetElement, "height")) / this.lineHeight);
         this.gear = -5;
         this.LINE_LIMIT = 300;
         this.startRun();
@@ -906,7 +1136,7 @@ var Live = /** @class */ (function () {
      * [createStyle 创建内嵌css]
      */
     Live.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__["default"])("\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__["a" /* default */])("\n            .multi-barrage-line{\n              position: absolute;\n              display: inline-block;\n              top: 0;\n              user-select:none;\n              white-space: pre;\n              color: #fff;\n              font-size: 25px;\n              font-family:SimHei, \"Microsoft JhengHei\", Arial, Helvetica, sans-serif;\n              font-weight:bold;\n              line-height: 1.125;\n              text-shadow:rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;\n              transition:-webkit-transform 0s linear;\n              z-index: 1;\n              pointer-events: none;\n            }\n        ");
     };
     /**
      * [addBarrage 添加弹幕]
@@ -958,7 +1188,7 @@ var Live = /** @class */ (function () {
         div.appendChild(textNode);
         div.style.opacity = '0';
         this.targetElement.appendChild(div);
-        var refWidth = parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["default"])(div, "width"));
+        var refWidth = parseInt(Object(__WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__["a" /* default */])(div, "width"));
         var speed = refWidth / 600 >= 0.5 ? 0.5 : refWidth / 600;
         if (!this.barrageWrap[lineIndex]) {
             this.barrageWrap[lineIndex] = [{
@@ -1007,7 +1237,7 @@ var Live = /** @class */ (function () {
         }
     };
     Live.prototype.intervalRun = function () {
-        this.runST = Object(__WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__["default"])(function () {
+        this.runST = Object(__WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__["a" /* default */])(function () {
             this.moveLine();
             this.createBarrage();
             this.intervalRun();
@@ -1017,241 +1247,13 @@ var Live = /** @class */ (function () {
      * 停止播放
      */
     Live.prototype.intervalStop = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__["default"])(this.runST);
+        Object(__WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__["a" /* default */])(this.runST);
     };
     return Live;
 }());
-/* harmony default export */ __webpack_exports__["default"] = (Live);
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-
-
-/**
- * class Vertical   垂直滚动
- * @returns voild
- */
-var Vertical = /** @class */ (function (_super) {
-    __extends(Vertical, _super);
-    function Vertical(opt) {
-        var _this = _super.call(this, opt) || this;
-        /**
-         * [targetHeight target高度]
-         * @type {number}
-         */
-        _this.targetHeight = 0;
-        /**
-         * [divWrapElementHeight 元素总宽度]
-         * @type {number}
-         */
-        _this.divWrapElementHeight = 0;
-        /**
-         * [distance 移动的距离]
-         * @type {number}
-         */
-        _this.distance = 0;
-        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(_this.targetElement, 'height'));
-        _this.createStyle();
-        _this.startRun();
-        return _this;
-    }
-    /**
-     * [createStyle 创建内嵌css]
-     */
-    Vertical.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n    \t\t\n    \t");
-    };
-    Vertical.prototype.startRun = function () {
-        this.divWrapElementHeight = this.createVertical();
-        if (this.targetHeight > this.divWrapElementHeight)
-            return;
-        this.STRun();
-    };
-    /**
-     * [createVertical 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
-     */
-    Vertical.prototype.createVertical = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["default"])(".scroxt-wrapper");
-        var verticalArr1 = this.createElement("scroxt-vertical");
-        var verticalArr2 = this.createElement("scroxt-vertical");
-        this.divWrapElement = document.querySelector(".scroxt-wrapper");
-        var divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
-        return divWrapElementHeight;
-    };
-    /**
-     * [computeWidth 计算元素宽度]
-     * @param {Array<HTMLElement>} ElementArr [元素集合]
-     */
-    Vertical.prototype.computeHeight = function (ElementArr) {
-        var height = 0;
-        for (var i = 0, len = ElementArr.length; i < len; i++) {
-            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(ElementArr[i], "height").replace("px", "")));
-        }
-        return height;
-    };
-    /**
-     * [STRun 定时器]
-     */
-    Vertical.prototype.STRun = function () {
-        this.STMove();
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["default"])(function () {
-            this.STRun();
-        }.bind(this));
-    };
-    /**
-     * [STMove 一帧移动]
-     */
-    Vertical.prototype.STMove = function () {
-        if (this.options.speed < 0) {
-            if (this.distance <= -this.divWrapElementHeight / 2) {
-                this.createVertical();
-                this.distance = 0;
-            }
-        }
-        else {
-            if (this.distance >= this.targetHeight - this.divWrapElementHeight / 2) {
-                this.createVertical();
-                this.distance = this.targetHeight - this.divWrapElementHeight;
-            }
-        }
-        this.divWrapElement.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
-        this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
-        this.distance += this.options.speed * 0.1;
-    };
-    return Vertical;
-}(__WEBPACK_IMPORTED_MODULE_0__root__["default"]));
-/* harmony default export */ __webpack_exports__["default"] = (Vertical);
-
-
-/***/ }),
-/* 12 */,
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(10);
-
-
-
-
-/**
- * [scroxt scroxt全局对象]
- * @type {any}
- */
-var scroxt = {};
-/**
- * class Horizontal 水平滚动
- * @param {target:string,data:string[],speed:number} obj 类构造参数
- * target:target目标容器的css选择器。data:数据的数组，speed：弹幕滚动速度[0-10]
- * @returns voild
- * @example
- *
- * new scroxt.Horizontal({
- *     target: ".my-ele",
- *     data: ['第一条','第2条','第3条'],
- *     speed: -5
- * });
- */
-scroxt.Horizontal = __WEBPACK_IMPORTED_MODULE_0__horizontal__["default"];
-/**
- * class Vertical 垂直滚动
- * @param {target:string,data:string[],speed:number} obj 类构造参数
- * target:target目标容器的css选择器。data:数据的数组，speed：弹幕滚动速度[0-10]
- * @returns voild
- * @example
- *
- * new scroxt.Vertical({
- *     target: ".my-ele",
- *     data: ['第一条','第2条','第3条'],
- *     speed: -5
- * });
- */
-scroxt.Vertical = __WEBPACK_IMPORTED_MODULE_1__vertical__["default"];
-/**
- * class Barrage
- * @param {video: string,dataTime: {data:string,time:number}[]} obj 类构造参数
- * video:video标签的css选择器。dataTime:数据的数组对象，data:弹幕的内容，time弹幕出现的时间(单位/秒)
- * @returns voild
- * @example
- *
- * new scroxt.Barrage({
- *     video: "#my-video",
- *     dataTime: [{
- *         data:"第一条",  // 第一条弹幕
- *         time:1          // 第一条弹幕出现的时间 1秒
- *     },{
- *         data:"第二条",  // 第二条弹幕
- *         time:1		   // 第一条弹幕出现的时间 1秒
- *     },{
- *         data:"第三条",  // 第三条弹幕
- *         time:2          // 第一条弹幕出现的时间 2秒
- *     }]
- * });
- */
-scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["default"];
-/**
- * class Barrage
- * @param {target: string,strongLock: boolean} obj 类构造参数
- * target:target标签的css选择器。[strongLock]:强制模式，默认false
- * @returns voild
- * @example
- *
- *1.非强制模式，所有弹幕都会出现，但是某些浏览器可能会因为弹幕数量过多导致卡顿
- * var scroxtLive = new scroxt.Live({
- *     target: ".scroxt-video-barrage"
- * });
- *scroxtLive.addBarrage("第一条弹幕");
- *scroxtLive.addBarrage("第二条弹幕");
- *
- *2.强制模式，页面最多出现65条弹幕.页面当有65条弹幕的时候，添加的任何弹幕将会扔掉直至屏幕中的弹幕消失
- * new scroxt.Live({
- *     target: ".scroxt-video-barrage",
- *     strongLock: true
- * });
- *scroxtLive.addBarrage("第一条弹幕");
- *scroxtLive.addBarrage("第二条弹幕");
- *
- *3.强制模式，强制模式下，由于弹幕可能会被扔掉，但用户自己发弹幕不能扔！！！用户本人发的弹幕addBarrage第二个参数为true。已达到欺骗效果
- * new scroxt.Live({
- *     target: ".scroxt-video-barrage",
- *     strongLock: true
- * });
- *scroxtLive.addBarrage("这是我自己的弹幕,只有用户本人能看到",true);
- *
- *
- */
-scroxt.Live = __WEBPACK_IMPORTED_MODULE_3__live__["default"];
-window.scroxt = scroxt;
-/* harmony default export */ __webpack_exports__["default"] = (scroxt);
+/* harmony default export */ __webpack_exports__["a"] = (Live);
 
 
 /***/ })
 /******/ ]);
+});

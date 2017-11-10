@@ -37,22 +37,16 @@ class Vertical extends root{
     constructor(opt){
         super(opt);
         this.targetHeight = parseFloat(getEleAttr(this.targetElement,'height'));
-        this.createStyle();
         this.startRun();
-    }
-
-    /**
-     * [createStyle 创建内嵌css]
-     */
-    createStyle(){
-    	addStyleCSS(`
-    		
-    	`);
     }
 
     startRun(){
     	this.divWrapElementHeight = this.createVertical();
-    	if(this.targetHeight > this.divWrapElementHeight) return;
+    	if(this.targetHeight > this.divWrapElementHeight/2){
+    		removeElement(".scroxt-wrapper");
+    		this.createElement("scroxt-vertical");
+    		return;
+    	};
         this.STRun();
     }
 

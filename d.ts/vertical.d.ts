@@ -25,10 +25,6 @@ declare class Vertical extends root {
      */
     private distance;
     constructor(opt: any);
-    /**
-     * [createStyle 创建内嵌css]
-     */
-    createStyle(): void;
     startRun(): void;
     /**
      * [createVertical 创建水平滚动元素]
