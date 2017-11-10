@@ -46,7 +46,7 @@ import addStyleCSS from './internal/addStyleCSS';
       */
      private targetElementBorderWidth:number = 0;
 
-     constructor({target,data,speed,gap = 20}:{
+     constructor({target,data,speed,gap = 10}:{
          target: string,
          data: string[],
          speed:number,

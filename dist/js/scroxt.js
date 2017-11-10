@@ -458,7 +458,7 @@ var __extends = (this && this.__extends) || (function () {
 var Horizontal = /** @class */ (function (_super) {
     __extends(Horizontal, _super);
     function Horizontal(_a) {
-        var target = _a.target, data = _a.data, speed = _a.speed, _b = _a.gap, gap = _b === void 0 ? 20 : _b;
+        var target = _a.target, data = _a.data, speed = _a.speed, _b = _a.gap, gap = _b === void 0 ? 10 : _b;
         var _this = _super.call(this, { target: target, data: data, speed: speed }) || this;
         /**
          * [sumWidth 水平滚动元素总宽度]

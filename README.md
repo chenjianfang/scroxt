@@ -45,7 +45,8 @@ import scroxt form "scroxt"
 new scroxt.Horizontal({
     target: ".my-ele",
     data: ['第一条','第2条','第3条'],
-    speed: -5
+    speed: -5,
+    gap: 20
 });
 
 ```
@@ -53,6 +54,7 @@ new scroxt.Horizontal({
 - target：水平滚动字体的容器css选择器
 - data：字体数组
 - speed: 滚动速度，单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10
+- gap: 每条内容的间隔，默认为10px
 
 #### 二、垂直滚动
 
