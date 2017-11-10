@@ -34,7 +34,12 @@ declare class Horizontal extends root {
      * @type {number}
      */
     private targetElementBorderWidth;
-    constructor(opt: any);
+    constructor({target, data, speed, gap}: {
+        target: string;
+        data: string[];
+        speed: number;
+        gap: number;
+    });
     /**
      * [createStyle 创建内嵌css]
      */

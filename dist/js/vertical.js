@@ -364,6 +364,8 @@ var Vertical = /** @class */ (function (_super) {
     };
     Vertical.prototype.startRun = function () {
         this.divWrapElementHeight = this.createVertical();
+        if (this.targetHeight > this.divWrapElementHeight)
+            return;
         this.STRun();
     };
     /**

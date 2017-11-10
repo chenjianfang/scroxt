@@ -332,18 +332,14 @@ var __extends = (this && this.__extends) || (function () {
  */
 var Horizontal = /** @class */ (function (_super) {
     __extends(Horizontal, _super);
-    function Horizontal(opt) {
-        var _this = _super.call(this, opt) || this;
+    function Horizontal(_a) {
+        var target = _a.target, data = _a.data, speed = _a.speed, _b = _a.gap, gap = _b === void 0 ? 20 : _b;
+        var _this = _super.call(this, { target: target, data: data, speed: speed }) || this;
         /**
          * [sumWidth 水平滚动元素总宽度]
          * @type {number}
          */
         _this.sumWidth = 0;
-        /**
-         * [scroxtGap 水平滚动元素的间隔]
-         * @type {number}
-         */
-        _this.scroxtGap = 10;
         /**
          * [distance 移动的距离]
          * @type {number}
@@ -364,6 +360,7 @@ var Horizontal = /** @class */ (function (_super) {
          * @type {number}
          */
         _this.targetElementBorderWidth = 0;
+        _this.scroxtGap = gap;
         _this.createStyle();
         _this.init();
         return _this;
@@ -372,7 +369,7 @@ var Horizontal = /** @class */ (function (_super) {
      * [createStyle 创建内嵌css]
      */
     Horizontal.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .scroxt-wrapper{\n              width: 1000px;\n            }\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: 10px;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["default"])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n            }\n        ");
     };
     /**
      * [init 入口]
@@ -381,6 +378,8 @@ var Horizontal = /** @class */ (function (_super) {
         this.targetWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(this.targetElement, 'width'));
         this.targetElementBorderWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["default"])(this.targetElement, 'border-width'));
         this.createHorizontal();
+        if (this.divWrapElementWidth < this.targetWidth)
+            return;
         this.STRun();
     };
     /**

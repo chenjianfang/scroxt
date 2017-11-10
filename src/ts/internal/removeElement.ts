@@ -15,6 +15,6 @@ export default function removeElement(ele){
     	const element = document.querySelector(ele);
 		element.parentNode.removeChild(element);
 	}else{
-		console.error("参数错误");
+		console.log("参数错误");
 	}
 }

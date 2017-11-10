@@ -20,7 +20,7 @@ import addStyleCSS from './internal/addStyleCSS';
       * [scroxtGap 水平滚动元素的间隔]
       * @type {number}
       */
-     scroxtGap: number = 10;
+     scroxtGap: number;
 
      /**
       * [distance 移动的距离]
@@ -46,8 +46,14 @@ import addStyleCSS from './internal/addStyleCSS';
       */
      private targetElementBorderWidth:number = 0;
 
-     constructor(opt){
-         super(opt);
+     constructor({target,data,speed,gap = 20}:{
+         target: string,
+         data: string[],
+         speed:number,
+         gap:number
+     }){
+         super({target,data,speed});
+         this.scroxtGap = gap;
          this.createStyle();
          this.init();
      }
@@ -57,9 +63,6 @@ import addStyleCSS from './internal/addStyleCSS';
       */
      createStyle(){
         addStyleCSS(`
-            .scroxt-wrapper{
-              width: 1000px;
-            }
             .scroxt-wrapper::after{
                 display: block;
                 content: "";
@@ -67,7 +70,8 @@ import addStyleCSS from './internal/addStyleCSS';
             }
             .scroxt-horizontal{
                 float: left;
-                margin-right: 10px;
+                margin-right: ${this.scroxtGap}px;
+                white-space: nowrap;
             }
         `)
      }
@@ -79,6 +83,7 @@ import addStyleCSS from './internal/addStyleCSS';
         this.targetWidth = parseFloat(getEleAttr(this.targetElement,'width'));
         this.targetElementBorderWidth = parseFloat(getEleAttr(this.targetElement,'border-width'));
         this.createHorizontal();
+        if(this.divWrapElementWidth < this.targetWidth) return;
         this.STRun();
     }
 

@@ -20,6 +20,7 @@ npm install --save scroxt
 ```
 ## 更新
 2017.11.08 视频弹幕增加播放，暂停，重播，快进，快退接口。详细查看[视频弹幕](https://github.com/chenjianfang/scroxt#三视频弹幕)
+2017.11.10 垂直、水平滚动增加限制，只有两倍的内容的高度或者宽度才会滚动。水平滚动增加gap字段，gap指定水平滚动每条内容的间隔，默认10
 
 
 ## Getting Started

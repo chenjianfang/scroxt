@@ -52,6 +52,7 @@ class Vertical extends root{
 
     startRun(){
     	this.divWrapElementHeight = this.createVertical();
+    	if(this.targetHeight > this.divWrapElementHeight) return;
         this.STRun();
     }
 
