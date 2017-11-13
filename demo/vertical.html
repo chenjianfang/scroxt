@@ -13,7 +13,19 @@
             border: 1px solid;
             overflow: hidden;
         }
-        .scroxt-wrapper{
+        .scroxt-vertical{
+            border: 1px solid;
+        }
+        .btn{
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -21,16 +33,29 @@
 
 <!-- 滚动 -->
 <div class="my-ele">
-    
+</div>
+<div>
+    <span class="start btn">开始</span>
+    <span class="stop btn">暂停</span>
 </div>
 <script src="../dist/js/scroxt.js"></script>
 <script>
     
-    new scroxt.Vertical({
+    var scroxtVertical = new scroxt.Vertical({
         target: ".my-ele",
         data: ['第一条','第2条','第3条','第4条','第5条'],
         speed: -5
     });
+
+    //暂停
+    document.querySelector(".stop").addEventListener("click",function(){
+        scroxtVertical.stopMove();
+    });
+    //开始
+    document.querySelector(".start").addEventListener("click",function(){
+        scroxtVertical.startMove();
+    });
+    
 </script>
 </body>
 </html>

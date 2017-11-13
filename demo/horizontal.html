@@ -17,21 +17,43 @@
         .scroxt-wrapper{
             margin-left: 100%;
         }
+        .btn{
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
 <!-- 滚动 -->
 <div class="my-ele">
-    
+</div>
+<div>
+    <span class="start btn">开始</span>
+    <span class="stop btn">暂停</span>
 </div>
 <script src="../dist/js/scroxt.js"></script>
 <script>
-    new scroxt.Horizontal({
+    var scroxtHorizontal = new scroxt.Horizontal({
         target: ".my-ele",
-        data: ['第一条','第二条','第三条'],
+        data: ['第一条','第二条','第三条','第四条'],
         speed: -5,
-        gap: 20
+    });
+
+    //暂停
+    document.querySelector(".stop").addEventListener("click",function(){
+        scroxtHorizontal.stopMove();
+    });
+    //开始
+    document.querySelector(".start").addEventListener("click",function(){
+        scroxtHorizontal.startMove();
     });
 </script>
 </body>

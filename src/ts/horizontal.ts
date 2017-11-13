@@ -46,6 +46,12 @@ import addStyleCSS from './internal/addStyleCSS';
       */
      private targetElementBorderWidth:number = 0;
 
+     /**
+      * [ST move定时器]
+      * @type {Number}
+      */
+     private ST = 0;
+
      constructor({target,data,speed,gap = 10}:{
          target: string,
          data: string[],
@@ -72,6 +78,7 @@ import addStyleCSS from './internal/addStyleCSS';
                 float: left;
                 margin-right: ${this.scroxtGap}px;
                 white-space: nowrap;
+                box-sizing: border-box;
             }
         `)
      }
@@ -128,7 +135,7 @@ import addStyleCSS from './internal/addStyleCSS';
      */
     STRun(){
         this.STMove();
-        setTimeTask(function(){
+        this.ST = setTimeTask(function(){
             this.STRun();
         }.bind(this));
     }
@@ -164,6 +171,23 @@ import addStyleCSS from './internal/addStyleCSS';
         divWrapElement.style.transform = `translate3d(${this.distance}px, 0px, 0px)`;
         divWrapElement.style.webkitTransform = `translate3d(${this.distance}px, 0px, 0px)`;
         this.distance += this.options.speed*0.1;
+    }
+
+    /**
+     * [stopMove 停止移动]
+     */
+    stopMove(){
+        clearTimeTask(this.ST);
+        this.ST = 0;
+    }
+
+    /**
+     * [startMove 开始移动]
+     */
+    startMove(){
+        if(this.ST === 0){
+            this.STRun();
+        }
     }
 }
 

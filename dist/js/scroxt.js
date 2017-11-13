@@ -104,8 +104,28 @@ var setTimeTask = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/**
+ * 取消定时器profix
+ *
+ * 例子
+ *
+ * clearTimeTask(st);
+ */
+var clearTimeTask = (function () {
+    return window.cancelAnimationFrame ||
+        window.mozCancelAnimationFrame ||
+        window.clearTimeout;
+})();
+/* harmony default export */ __webpack_exports__["a"] = (clearTimeTask);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = getEleAttr;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(5);
 
 /**
  * @param {any} css selector
@@ -128,7 +148,7 @@ function getEleAttr(ele, attr) {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,7 +190,7 @@ function addStyleCSS(cssText) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -249,7 +269,7 @@ var root = /** @class */ (function () {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -272,12 +292,12 @@ function isDOM(ele) {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = removeElement;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(5);
 
 /**
  * @param {Element} ele:删除的元素的css选择器
@@ -299,26 +319,6 @@ function removeElement(ele) {
         console.log("参数错误");
     }
 }
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * 取消定时器profix
- *
- * 例子
- *
- * clearTimeTask(st);
- */
-var clearTimeTask = (function () {
-    return window.cancelAnimationFrame ||
-        window.mozCancelAnimationFrame ||
-        window.clearTimeout;
-})();
-/* harmony default export */ __webpack_exports__["a"] = (clearTimeTask);
 
 
 /***/ }),
@@ -431,11 +431,12 @@ window.scroxt = scroxt;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_clearTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_removeElement__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -446,6 +447,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
 
 
 
@@ -485,6 +487,11 @@ var Horizontal = /** @class */ (function (_super) {
          * @type {number}
          */
         _this.targetElementBorderWidth = 0;
+        /**
+         * [ST move定时器]
+         * @type {Number}
+         */
+        _this.ST = 0;
         _this.scroxtGap = gap;
         _this.createStyle();
         _this.init();
@@ -494,18 +501,18 @@ var Horizontal = /** @class */ (function (_super) {
      * [createStyle 创建内嵌css]
      */
     Horizontal.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n                box-sizing: border-box;\n            }\n        ");
     };
     /**
      * [init 入口]
      */
     Horizontal.prototype.init = function () {
-        this.targetWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(this.targetElement, 'width'));
-        this.targetElementBorderWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(this.targetElement, 'border-width'));
+        this.targetWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__["a" /* default */])(this.targetElement, 'width'));
+        this.targetElementBorderWidth = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__["a" /* default */])(this.targetElement, 'border-width'));
         this.createHorizontal();
         //当内容宽度小于盒子宽度
         if (this.divWrapElementWidth / 2 < this.targetWidth) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+            Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
             var ElementArr = this.createElement("scroxt-horizontal");
             this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
             var divWrapElement = document.querySelector(".scroxt-wrapper");
@@ -521,7 +528,7 @@ var Horizontal = /** @class */ (function (_super) {
      * @returns {HTMLElement} divWrapElement:水平滚动元素集
      */
     Horizontal.prototype.createHorizontal = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
         var ElementArr1 = this.createElement("scroxt-horizontal");
         var ElementArr2 = this.createElement("scroxt-horizontal");
         var ElementArr = ElementArr1.concat(ElementArr2);
@@ -537,7 +544,7 @@ var Horizontal = /** @class */ (function (_super) {
     Horizontal.prototype.computeWidth = function (ElementArr) {
         var width = 0;
         for (var i = 0, len = ElementArr.length; i < len; i++) {
-            width += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(ElementArr[i], "width").replace("px", "")));
+            width += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__["a" /* default */])(ElementArr[i], "width").replace("px", "")));
         }
         return width;
     };
@@ -546,7 +553,7 @@ var Horizontal = /** @class */ (function (_super) {
      */
     Horizontal.prototype.STRun = function () {
         this.STMove();
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["a" /* default */])(function () {
+        this.ST = Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["a" /* default */])(function () {
             this.STRun();
         }.bind(this));
     };
@@ -580,6 +587,21 @@ var Horizontal = /** @class */ (function (_super) {
         divWrapElement.style.webkitTransform = "translate3d(" + this.distance + "px, 0px, 0px)";
         this.distance += this.options.speed * 0.1;
     };
+    /**
+     * [stopMove 停止移动]
+     */
+    Horizontal.prototype.stopMove = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_2__internal_clearTimeTask__["a" /* default */])(this.ST);
+        this.ST = 0;
+    };
+    /**
+     * [startMove 开始移动]
+     */
+    Horizontal.prototype.startMove = function () {
+        if (this.ST === 0) {
+            this.STRun();
+        }
+    };
     return Horizontal;
 }(__WEBPACK_IMPORTED_MODULE_0__root__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (Horizontal);
@@ -590,10 +612,12 @@ var Horizontal = /** @class */ (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_removeElement__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_clearTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_removeElement__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -604,6 +628,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
+
 
 
 
@@ -622,7 +648,7 @@ var Vertical = /** @class */ (function (_super) {
          */
         _this.targetHeight = 0;
         /**
-         * [divWrapElementHeight 元素总宽度]
+         * [divWrapElementHeight 元素总高度]
          * @type {number}
          */
         _this.divWrapElementHeight = 0;
@@ -631,14 +657,20 @@ var Vertical = /** @class */ (function (_super) {
          * @type {number}
          */
         _this.distance = 0;
-        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(_this.targetElement, 'height'));
+        /**
+         * [ST move定时器]
+         * @type {Number}
+         */
+        _this.ST = 0;
+        _this.targetHeight = parseFloat(Object(__WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__["a" /* default */])(_this.targetElement, 'height'));
+        _this.createStyle();
         _this.startRun();
         return _this;
     }
     Vertical.prototype.startRun = function () {
         this.divWrapElementHeight = this.createVertical();
         if (this.targetHeight > this.divWrapElementHeight / 2) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+            Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
             this.createElement("scroxt-vertical");
             return;
         }
@@ -646,11 +678,17 @@ var Vertical = /** @class */ (function (_super) {
         this.STRun();
     };
     /**
+     * [createStyle 创建内嵌css]
+     */
+    Vertical.prototype.createStyle = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-vertical{\n                box-sizing: border-box;\n            }\n        ");
+    };
+    /**
      * [createVertical 创建水平滚动元素]
      * @returns {HTMLElement} divWrapElement:垂直滚动元素集
      */
     Vertical.prototype.createVertical = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_3__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
         var verticalArr1 = this.createElement("scroxt-vertical");
         var verticalArr2 = this.createElement("scroxt-vertical");
         this.divWrapElement = document.querySelector(".scroxt-wrapper");
@@ -664,7 +702,7 @@ var Vertical = /** @class */ (function (_super) {
     Vertical.prototype.computeHeight = function (ElementArr) {
         var height = 0;
         for (var i = 0, len = ElementArr.length; i < len; i++) {
-            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__["a" /* default */])(ElementArr[i], "height").replace("px", "")));
+            height += Math.ceil(+(Object(__WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__["a" /* default */])(ElementArr[i], "height").replace("px", "")));
         }
         return height;
     };
@@ -673,7 +711,7 @@ var Vertical = /** @class */ (function (_super) {
      */
     Vertical.prototype.STRun = function () {
         this.STMove();
-        Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["a" /* default */])(function () {
+        this.ST = Object(__WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__["a" /* default */])(function () {
             this.STRun();
         }.bind(this));
     };
@@ -697,6 +735,21 @@ var Vertical = /** @class */ (function (_super) {
         this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
         this.distance += this.options.speed * 0.1;
     };
+    /**
+     * [stopMove 停止移动]
+     */
+    Vertical.prototype.stopMove = function () {
+        Object(__WEBPACK_IMPORTED_MODULE_2__internal_clearTimeTask__["a" /* default */])(this.ST);
+        this.ST = 0;
+    };
+    /**
+     * [startMove 开始移动]
+     */
+    Vertical.prototype.startMove = function () {
+        if (this.ST === 0) {
+            this.STRun();
+        }
+    };
     return Vertical;
 }(__WEBPACK_IMPORTED_MODULE_0__root__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (Vertical);
@@ -708,10 +761,10 @@ var Vertical = /** @class */ (function (_super) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1065,10 +1118,10 @@ var Event = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_getEleAttr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_addStyleCSS__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_setTimeTask__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_clearTimeTask__ = __webpack_require__(1);
 
 
 

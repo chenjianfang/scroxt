@@ -34,6 +34,11 @@ declare class Horizontal extends root {
      * @type {number}
      */
     private targetElementBorderWidth;
+    /**
+     * [ST move定时器]
+     * @type {Number}
+     */
+    private ST;
     constructor({target, data, speed, gap}: {
         target: string;
         data: string[];
@@ -66,5 +71,13 @@ declare class Horizontal extends root {
      * [STMove 单位帧移动]
      */
     STMove(): void;
+    /**
+     * [stopMove 停止移动]
+     */
+    stopMove(): void;
+    /**
+     * [startMove 开始移动]
+     */
+    startMove(): void;
 }
 export default Horizontal;

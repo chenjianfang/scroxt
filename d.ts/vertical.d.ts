@@ -15,7 +15,7 @@ declare class Vertical extends root {
      */
     private divWrapElement;
     /**
-     * [divWrapElementHeight 元素总宽度]
+     * [divWrapElementHeight 元素总高度]
      * @type {number}
      */
     private divWrapElementHeight;
@@ -24,8 +24,17 @@ declare class Vertical extends root {
      * @type {number}
      */
     private distance;
+    /**
+     * [ST move定时器]
+     * @type {Number}
+     */
+    private ST;
     constructor(opt: any);
     startRun(): void;
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    createStyle(): void;
     /**
      * [createVertical 创建水平滚动元素]
      * @returns {HTMLElement} divWrapElement:垂直滚动元素集
@@ -44,5 +53,13 @@ declare class Vertical extends root {
      * [STMove 一帧移动]
      */
     STMove(): void;
+    /**
+     * [stopMove 停止移动]
+     */
+    stopMove(): void;
+    /**
+     * [startMove 开始移动]
+     */
+    startMove(): void;
 }
 export default Vertical;

@@ -32,6 +32,8 @@ import scroxt form "scroxt"
 
 2017.11.10 垂直、水平滚动增加限制，只有两倍的内容的高度或者宽度才会滚动。水平滚动增加gap字段，gap指定水平滚动每条内容的间隔，默认10
 
+2017.11.13 水平滚动和垂直滚动增加暂停、开始接口。fix边框bug
+
 
 ## Getting Started
 
@@ -42,7 +44,7 @@ import scroxt form "scroxt"
 #### 一、水平滚动
 
 ```
-new scroxt.Horizontal({
+var scroxtHorizontal = new scroxt.Horizontal({
     target: ".my-ele",
     data: ['第一条','第2条','第3条'],
     speed: -5,
@@ -53,13 +55,17 @@ new scroxt.Horizontal({
 参数：
 - target：水平滚动字体的容器css选择器
 - data：字体数组
-- speed: 滚动速度，单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10
+- speed: 滚动方向:负数为自下而上滚动，正数为自上而下滚动。滚动速度: 单位帧移动的距离= speed * 0.1。speed的大小范围为 1-10。
 - gap: 每条内容的间隔，默认为10px
+
+scroxt.Horizontal实例参数：
+- stopMove(): 停止移动
+- startMove(): 开始移动
 
 #### 二、垂直滚动
 
 ```
-new scroxt.Vertical({
+var scroxtVertical = new scroxt.Vertical({
     target: ".my-ele",
     data: ['第一条','第2条','第3条','第4条','第5条'],
     speed: 5
@@ -70,8 +76,11 @@ new scroxt.Vertical({
 参数：
 - target：垂直滚动字体的容器css选择器
 - data：字体数组
-- speed: 滚动速度，speed的大小范围为 1-10。单位帧移动的距离= speed * 0.1。
+- speed: 滚动方向：负数为从右到左滚动，正数为从左到右。滚动速度：speed的大小范围为 1-10。单位帧移动的距离= speed * 0.1。
 
+scroxt.Vertical实例参数：
+- stopMove(): 停止移动
+- startMove(): 开始移动
 
 #### 三、视频弹幕
 

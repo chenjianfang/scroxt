@@ -23,7 +23,7 @@ class Vertical extends root{
     private divWrapElement:HTMLElement;
 
     /**
-     * [divWrapElementHeight 元素总宽度]
+     * [divWrapElementHeight 元素总高度]
      * @type {number}
      */
     private divWrapElementHeight:number = 0;
@@ -34,9 +34,16 @@ class Vertical extends root{
      */
     private distance:number = 0
 
+    /**
+     * [ST move定时器]
+     * @type {Number}
+     */
+    private ST = 0;
+
     constructor(opt){
         super(opt);
         this.targetHeight = parseFloat(getEleAttr(this.targetElement,'height'));
+        this.createStyle();
         this.startRun();
     }
 
@@ -48,6 +55,17 @@ class Vertical extends root{
     		return;
     	};
         this.STRun();
+    }
+
+    /**
+     * [createStyle 创建内嵌css]
+     */
+    createStyle(){
+        addStyleCSS(`
+            .scroxt-vertical{
+                box-sizing: border-box;
+            }
+        `);
     }
 
     /**
@@ -80,7 +98,7 @@ class Vertical extends root{
      */
     STRun(){
         this.STMove();
-        setTimeTask(function(){
+        this.ST = setTimeTask(function(){
             this.STRun();
         }.bind(this));
     }
@@ -106,6 +124,25 @@ class Vertical extends root{
         
         this.distance += this.options.speed * 0.1;
     }
+
+    /**
+     * [stopMove 停止移动]
+     */
+    stopMove(){
+        clearTimeTask(this.ST);
+        this.ST = 0;
+    }
+
+    /**
+     * [startMove 开始移动]
+     */
+    startMove(){
+        if(this.ST === 0){
+            this.STRun();
+        }
+    }
+
+
 }
 
 export default Vertical;
