@@ -22,7 +22,12 @@ let scroxt:any = {};
  *     speed: -5
  * });
  */
-scroxt.Horizontal = Horizontal;
+Object.defineProperty(scroxt,'Horizontal',{
+	value: Horizontal,
+	writable: false,
+	enumerable: false,
+	configurable: false
+});
 
 /**
  * class Vertical 垂直滚动
@@ -37,8 +42,12 @@ scroxt.Horizontal = Horizontal;
  *     speed: -5
  * });
  */
-scroxt.Vertical = Vertical;
-
+Object.defineProperty(scroxt,'Vertical',{
+	value: Vertical,
+	writable: false,
+	enumerable: false,
+	configurable: false
+});
 
 /**
  * class Barrage
@@ -61,8 +70,12 @@ scroxt.Vertical = Vertical;
  *     }]
  * });
  */
-scroxt.Barrage = Barrage;
-
+Object.defineProperty(scroxt,'Barrage',{
+	value: Barrage,
+	writable: false,
+	enumerable: false,
+	configurable: false
+});
 
 /**
  * class Barrage
@@ -95,7 +108,12 @@ scroxt.Barrage = Barrage;
  *
  * 
  */
-scroxt.Live = Live;
+Object.defineProperty(scroxt,'Live',{
+	value: Live,
+	writable: false,
+	enumerable: false,
+	configurable: false
+});
 
 
 (window as any).scroxt = scroxt;
