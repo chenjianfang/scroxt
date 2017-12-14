@@ -69,20 +69,22 @@ class root{
     createElement(className:string = ""){
 
         // const scope = ~~(Math.random()*100) + (+new Date());
-        const target = this.targetElement;
         const divBox:HTMLElement[] = [];
         let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
         
         if(!divWrapElement){
             divWrapElement = document.createElement('div');
             divWrapElement.className = "scroxt-wrapper";
-            target.appendChild(divWrapElement);
+            this.targetElement = <HTMLElement>document.querySelector(this.options.target);
+            this.targetElement.appendChild(divWrapElement);
         }
         for(let i = 0, len = this.options.data.length; i < len; i++){
             const div = document.createElement('div');
             div.className = className;
-            const text = document.createTextNode(this.options.data[i]);
-            div.appendChild(text);
+            // const text = document.createTextNode(this.options.data[i]);
+            const text = this.options.data[i];
+            div.innerHTML = text;
+            // div.appendChild(text);
             divWrapElement.appendChild(div)
             divBox.push(div);
         }

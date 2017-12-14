@@ -100,4 +100,4 @@ scroxt.Live = Live;
 
 (window as any).scroxt = scroxt;
 
-export default scroxt;
+export {scroxt};

@@ -245,19 +245,21 @@ var root = /** @class */ (function () {
     root.prototype.createElement = function (className) {
         if (className === void 0) { className = ""; }
         // const scope = ~~(Math.random()*100) + (+new Date());
-        var target = this.targetElement;
         var divBox = [];
         var divWrapElement = document.querySelector(".scroxt-wrapper");
         if (!divWrapElement) {
             divWrapElement = document.createElement('div');
             divWrapElement.className = "scroxt-wrapper";
-            target.appendChild(divWrapElement);
+            this.targetElement = document.querySelector(this.options.target);
+            this.targetElement.appendChild(divWrapElement);
         }
         for (var i = 0, len = this.options.data.length; i < len; i++) {
             var div = document.createElement('div');
             div.className = className;
-            var text = document.createTextNode(this.options.data[i]);
-            div.appendChild(text);
+            // const text = document.createTextNode(this.options.data[i]);
+            var text = this.options.data[i];
+            div.innerHTML = text;
+            // div.appendChild(text);
             divWrapElement.appendChild(div);
             divBox.push(div);
         }
@@ -327,6 +329,7 @@ function removeElement(ele) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scroxt", function() { return scroxt; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(10);
@@ -423,7 +426,7 @@ scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["a" /* default */];
  */
 scroxt.Live = __WEBPACK_IMPORTED_MODULE_3__live__["a" /* default */];
 window.scroxt = scroxt;
-/* harmony default export */ __webpack_exports__["default"] = (scroxt);
+
 
 
 /***/ }),
