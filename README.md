@@ -34,6 +34,8 @@ import scroxt form "scroxt"
 
 2017.11.13 水平滚动和垂直滚动增加暂停、开始接口。fix边框bug
 
+2017.12.14 水平滚动和垂直滚动增加标签元素滚动
+
 
 ## Getting Started
 

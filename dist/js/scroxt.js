@@ -356,7 +356,12 @@ var scroxt = {};
  *     speed: -5
  * });
  */
-scroxt.Horizontal = __WEBPACK_IMPORTED_MODULE_0__horizontal__["a" /* default */];
+Object.defineProperty(scroxt, 'Horizontal', {
+    value: __WEBPACK_IMPORTED_MODULE_0__horizontal__["a" /* default */],
+    writable: false,
+    enumerable: false,
+    configurable: false
+});
 /**
  * class Vertical 垂直滚动
  * @param {target:string,data:string[],speed:number} obj 类构造参数
@@ -370,7 +375,12 @@ scroxt.Horizontal = __WEBPACK_IMPORTED_MODULE_0__horizontal__["a" /* default */]
  *     speed: -5
  * });
  */
-scroxt.Vertical = __WEBPACK_IMPORTED_MODULE_1__vertical__["a" /* default */];
+Object.defineProperty(scroxt, 'Vertical', {
+    value: __WEBPACK_IMPORTED_MODULE_1__vertical__["a" /* default */],
+    writable: false,
+    enumerable: false,
+    configurable: false
+});
 /**
  * class Barrage
  * @param {video: string,dataTime: {data:string,time:number}[]} obj 类构造参数
@@ -392,7 +402,12 @@ scroxt.Vertical = __WEBPACK_IMPORTED_MODULE_1__vertical__["a" /* default */];
  *     }]
  * });
  */
-scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["a" /* default */];
+Object.defineProperty(scroxt, 'Barrage', {
+    value: __WEBPACK_IMPORTED_MODULE_2__barrage__["a" /* default */],
+    writable: false,
+    enumerable: false,
+    configurable: false
+});
 /**
  * class Barrage
  * @param {target: string,strongLock: boolean} obj 类构造参数
@@ -424,7 +439,12 @@ scroxt.Barrage = __WEBPACK_IMPORTED_MODULE_2__barrage__["a" /* default */];
  *
  *
  */
-scroxt.Live = __WEBPACK_IMPORTED_MODULE_3__live__["a" /* default */];
+Object.defineProperty(scroxt, 'Live', {
+    value: __WEBPACK_IMPORTED_MODULE_3__live__["a" /* default */],
+    writable: false,
+    enumerable: false,
+    configurable: false
+});
 window.scroxt = scroxt;
 
 
