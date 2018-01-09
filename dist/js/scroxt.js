@@ -445,7 +445,7 @@ Object.defineProperty(scroxt, 'Live', {
     enumerable: false,
     configurable: false
 });
-window.scroxt = scroxt;
+Window.scroxt = scroxt;
 
 
 
