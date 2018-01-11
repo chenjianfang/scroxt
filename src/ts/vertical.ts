@@ -97,6 +97,7 @@ class Vertical extends root{
      * [STRun 定时器]
      */
     STRun(){
+        if(this.targetHeight > this.divWrapElementHeight/2) return;
         this.STMove();
         this.ST = setTimeTask(function(){
             this.STRun();

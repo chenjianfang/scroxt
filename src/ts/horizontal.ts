@@ -134,6 +134,7 @@ import addStyleCSS from './internal/addStyleCSS';
      * [STRun 定时运行]
      */
     STRun(){
+        if(this.divWrapElementWidth/2 < this.targetWidth) return;
         this.STMove();
         this.ST = setTimeTask(function(){
             this.STRun();
