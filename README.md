@@ -19,7 +19,7 @@ In a browser:
 ```
 <script src="scroxt.min.js"></script>
 <script>
-	var scroxtHorizontal = new Window.scroxt.Horizontal({
+	var scroxtHorizontal = new window.scroxt.Horizontal({
 	    target: ".my-ele",
 	    data: ['第一条','第2条','第3条'],
 	    speed: -5,
@@ -31,7 +31,7 @@ In a browser:
 In a webpack
 
 ```
-import {scroxt} form "scroxt"
+import scroxt form "scroxt"
 ```
 
 
@@ -108,7 +108,7 @@ scroxt.Vertical实例参数：
 </div>
 <script type="text/javascript" src="./dist/js/scroxt.js"></script>
 <script type="text/javascript">
-	var scroxtBarrage = new Window.scroxt.Barrage({
+	var scroxtBarrage = new window.scroxt.Barrage({
 	    video: "#my-video",
 	    dataTime: [{
 	    	data:"第一条弹幕",
@@ -160,7 +160,7 @@ scroxt.Barrage实例参数：
 </div>
 <script type="text/javascript" src="./dist/js/scroxt.js"></script>
 <script type="text/javascript">
-var scroxtLive = new Window.scroxt.Live({
+var scroxtLive = new window.scroxt.Live({
     target: ".scroxt-video-barrage",
 });
 var i = 0;

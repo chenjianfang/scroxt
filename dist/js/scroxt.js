@@ -7,7 +7,7 @@
 		var a = factory();
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -329,7 +329,6 @@ function removeElement(ele) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scroxt", function() { return scroxt; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(10);
@@ -445,8 +444,8 @@ Object.defineProperty(scroxt, 'Live', {
     enumerable: false,
     configurable: false
 });
-Window.scroxt = scroxt;
-
+window.scroxt = scroxt;
+/* harmony default export */ __webpack_exports__["default"] = (scroxt);
 
 
 /***/ }),

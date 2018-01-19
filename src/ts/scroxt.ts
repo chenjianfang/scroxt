@@ -116,6 +116,6 @@ Object.defineProperty(scroxt,'Live',{
 });
 
 
-(Window as any).scroxt = scroxt;
+(window as any).scroxt = scroxt;
 
-export {scroxt};
+export default scroxt;

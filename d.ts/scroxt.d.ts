@@ -3,4 +3,4 @@
  * @type {any}
  */
 declare let scroxt: any;
-export { scroxt };
+export default scroxt;
