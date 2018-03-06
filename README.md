@@ -44,6 +44,8 @@ import scroxt form "scroxt"
 
 2017.12.14 水平滚动和垂直滚动增加标签元素滚动
 
+2018.03.06 多个水平滚动、垂直滚动能互相同时存在一个页面
+
 
 ## Getting Started
 

@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -125,7 +125,7 @@ var clearTimeTask = (function () {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = getEleAttr;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(7);
 
 /**
  * @param {any} css selector
@@ -246,12 +246,12 @@ var root = /** @class */ (function () {
         if (className === void 0) { className = ""; }
         // const scope = ~~(Math.random()*100) + (+new Date());
         var divBox = [];
-        var divWrapElement = document.querySelector(".scroxt-wrapper");
-        if (!divWrapElement) {
-            divWrapElement = document.createElement('div');
-            divWrapElement.className = "scroxt-wrapper";
+        // let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
+        if (!this.scroxtWrapper) {
+            this.scroxtWrapper = document.createElement('div');
+            this.scroxtWrapper.className = "scroxt-wrapper";
             this.targetElement = document.querySelector(this.options.target);
-            this.targetElement.appendChild(divWrapElement);
+            this.targetElement.appendChild(this.scroxtWrapper);
         }
         for (var i = 0, len = this.options.data.length; i < len; i++) {
             var div = document.createElement('div');
@@ -260,10 +260,17 @@ var root = /** @class */ (function () {
             var text = this.options.data[i];
             div.innerHTML = text;
             // div.appendChild(text);
-            divWrapElement.appendChild(div);
+            this.scroxtWrapper.appendChild(div);
             divBox.push(div);
         }
         return divBox;
+    };
+    /**
+     * [emptyElement 删除当前实例所有子元素]
+     */
+    root.prototype.emptyElement = function () {
+        if (this.scroxtWrapper)
+            this.scroxtWrapper.innerHTML = "";
     };
     return root;
 }());
@@ -275,64 +282,11 @@ var root = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = isDOM;
-/**
- * @param {Element} ele:判断元素
- * @returns {Boolean} true:是元素节点，false:不是
- * @example
- *
- * isDOM(document.body)
- */
-function isDOM(ele) {
-    if (ele && ele.nodeType) {
-        return ele.nodeType === 1;
-    }
-    else {
-        return false;
-    }
-}
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = removeElement;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isDOM__ = __webpack_require__(5);
-
-/**
- * @param {Element} ele:删除的元素的css选择器
- * @example
- *
- * removeElement(".content")
- 
- * removeElement("[data-id='2014']")
- */
-function removeElement(ele) {
-    if (Object(__WEBPACK_IMPORTED_MODULE_0__isDOM__["a" /* default */])(ele)) {
-        ele.parentNode.removeChild(ele);
-    }
-    else if (typeof ele === 'string' && document.querySelector(ele)) {
-        var element = document.querySelector(ele);
-        element.parentNode.removeChild(element);
-    }
-    else {
-        console.log("参数错误");
-    }
-}
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__horizontal__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vertical__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barrage__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__live__ = __webpack_require__(11);
 
 
 
@@ -449,7 +403,7 @@ window.scroxt = scroxt;
 
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -457,8 +411,7 @@ window.scroxt = scroxt;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_clearTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_removeElement__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -469,7 +422,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-
 
 
 
@@ -523,7 +475,7 @@ var Horizontal = /** @class */ (function (_super) {
      * [createStyle 创建内嵌css]
      */
     Horizontal.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n                box-sizing: border-box;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-wrapper::after{\n                display: block;\n                content: \"\";\n                clear: both;\n            }\n            .scroxt-horizontal{\n                float: left;\n                margin-right: " + this.scroxtGap + "px;\n                white-space: nowrap;\n                box-sizing: border-box;\n            }\n        ");
     };
     /**
      * [init 入口]
@@ -534,12 +486,11 @@ var Horizontal = /** @class */ (function (_super) {
         this.createHorizontal();
         //当内容宽度小于盒子宽度
         if (this.divWrapElementWidth / 2 < this.targetWidth) {
-            Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+            this.emptyElement();
             var ElementArr = this.createElement("scroxt-horizontal");
             this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
-            var divWrapElement = document.querySelector(".scroxt-wrapper");
-            divWrapElement.style.width = this.divWrapElementWidth + 'px';
-            divWrapElement.style.marginLeft = "0px";
+            this.scroxtWrapper.style.width = this.divWrapElementWidth + 'px';
+            this.scroxtWrapper.style.marginLeft = "0px";
             return;
         }
         ;
@@ -547,17 +498,14 @@ var Horizontal = /** @class */ (function (_super) {
     };
     /**
      * [createHorizontal 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:水平滚动元素集
      */
     Horizontal.prototype.createHorizontal = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+        this.emptyElement();
         var ElementArr1 = this.createElement("scroxt-horizontal");
         var ElementArr2 = this.createElement("scroxt-horizontal");
         var ElementArr = ElementArr1.concat(ElementArr2);
         this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
-        var divWrapElement = document.querySelector(".scroxt-wrapper");
-        divWrapElement.style.width = this.divWrapElementWidth + 'px';
-        return divWrapElement;
+        this.scroxtWrapper.style.width = this.divWrapElementWidth + 'px';
     };
     /**
      * [computeWidth 计算元素宽度]
@@ -585,30 +533,29 @@ var Horizontal = /** @class */ (function (_super) {
      * [STMove 单位帧移动]
      */
     Horizontal.prototype.STMove = function () {
-        var divWrapElement = document.querySelector(".scroxt-wrapper");
-        var rectObj = divWrapElement.getBoundingClientRect();
+        var rectObj = this.scroxtWrapper.getBoundingClientRect();
         var divWrapElementHalfPosition = rectObj.left + (rectObj.right - rectObj.left) / 2;
         var targetRect = this.targetElement.getBoundingClientRect();
         if (this.options.speed < 0) {
             var targetLeftPosition = targetRect.left + this.targetElementBorderWidth;
             if (divWrapElementHalfPosition + this.options.speed * 0.1 <= targetLeftPosition) {
                 this.distance = 0;
-                divWrapElement = this.createHorizontal();
-                divWrapElement.style.left = "0px";
-                divWrapElement.style.marginLeft = "0px";
+                this.createHorizontal();
+                this.scroxtWrapper.style.left = "0px";
+                this.scroxtWrapper.style.marginLeft = "0px";
             }
         }
         else {
             var targetRightPosition = targetRect.right - this.targetElementBorderWidth * 2;
             if (divWrapElementHalfPosition + this.options.speed * 0.1 >= targetRightPosition) {
                 this.distance = -this.divWrapElementWidth + this.targetWidth;
-                divWrapElement = this.createHorizontal();
-                divWrapElement.style.right = "0px";
-                divWrapElement.style.marginRight = "0px";
+                this.createHorizontal();
+                this.scroxtWrapper.style.right = "0px";
+                this.scroxtWrapper.style.marginRight = "0px";
             }
         }
-        divWrapElement.style.transform = "translate3d(" + this.distance + "px, 0px, 0px)";
-        divWrapElement.style.webkitTransform = "translate3d(" + this.distance + "px, 0px, 0px)";
+        this.scroxtWrapper.style.transform = "translate3d(" + this.distance + "px, 0px, 0px)";
+        this.scroxtWrapper.style.webkitTransform = "translate3d(" + this.distance + "px, 0px, 0px)";
         this.distance += this.options.speed * 0.1;
     };
     /**
@@ -632,7 +579,30 @@ var Horizontal = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 9 */
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isDOM;
+/**
+ * @param {Element} ele:判断元素
+ * @returns {Boolean} true:是元素节点，false:不是
+ * @example
+ *
+ * isDOM(document.body)
+ */
+function isDOM(ele) {
+    if (ele && ele.nodeType) {
+        return ele.nodeType === 1;
+    }
+    else {
+        return false;
+    }
+}
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -640,8 +610,7 @@ var Horizontal = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_setTimeTask__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_clearTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_removeElement__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -652,7 +621,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-
 
 
 
@@ -694,7 +662,7 @@ var Vertical = /** @class */ (function (_super) {
     Vertical.prototype.startRun = function () {
         this.divWrapElementHeight = this.createVertical();
         if (this.targetHeight > this.divWrapElementHeight / 2) {
-            Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+            this.emptyElement();
             this.createElement("scroxt-vertical");
             return;
         }
@@ -705,17 +673,16 @@ var Vertical = /** @class */ (function (_super) {
      * [createStyle 创建内嵌css]
      */
     Vertical.prototype.createStyle = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_5__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-vertical{\n                box-sizing: border-box;\n            }\n        ");
+        Object(__WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__["a" /* default */])("\n            .scroxt-vertical{\n                box-sizing: border-box;\n            }\n        ");
     };
     /**
      * [createVertical 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
+     * @returns {HTMLElement} 子元素集总高度
      */
     Vertical.prototype.createVertical = function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__internal_removeElement__["a" /* default */])(".scroxt-wrapper");
+        this.emptyElement();
         var verticalArr1 = this.createElement("scroxt-vertical");
         var verticalArr2 = this.createElement("scroxt-vertical");
-        this.divWrapElement = document.querySelector(".scroxt-wrapper");
         var divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
         return divWrapElementHeight;
     };
@@ -757,8 +724,8 @@ var Vertical = /** @class */ (function (_super) {
                 this.distance = this.targetHeight - this.divWrapElementHeight;
             }
         }
-        this.divWrapElement.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
-        this.divWrapElement.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.scroxtWrapper.style.transform = "translate3d(0px, " + this.distance + "px, 0px)";
+        this.scroxtWrapper.style.webkitTransform = "translate3d(0px, " + this.distance + "px, 0px)";
         this.distance += this.options.speed * 0.1;
     };
     /**
@@ -782,14 +749,14 @@ var Vertical = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_setTimeTask__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_clearTimeTask__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_getEleAttr__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_Event__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_addStyleCSS__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1077,7 +1044,7 @@ var Barrage = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1140,7 +1107,7 @@ var Event = /** @class */ (function () {
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

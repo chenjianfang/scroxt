@@ -10,11 +10,6 @@ declare class Vertical extends root {
      */
     private targetHeight;
     /**
-     * [divWrapElement 滚动元素集]
-     * @type {HTMLElement}
-     */
-    private divWrapElement;
-    /**
      * [divWrapElementHeight 元素总高度]
      * @type {number}
      */
@@ -37,7 +32,7 @@ declare class Vertical extends root {
     createStyle(): void;
     /**
      * [createVertical 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:垂直滚动元素集
+     * @returns {HTMLElement} 子元素集总高度
      */
     createVertical(): number;
     /**

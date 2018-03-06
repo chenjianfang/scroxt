@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .my-vertical,.my-horizontal{
+            width: 100px;
+            height: 100px;
+            margin-top:50px;
+            margin-left: 50px;
+            font-size: 16px;
+            border: 1px solid;
+            overflow: hidden;
+        }
+        .scroxt-vertical{
+            border: 1px solid;
+        }
+        .btn{
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<p>—————————垂直滚动—————————</p>
+<div class="my-vertical">
+</div>
+<div>
+    <span class="v-start btn">开始</span>
+    <span class="v-stop btn">暂停</span>
+</div>
+
+<p>—————————水平滚动—————————</p>
+<div class="my-horizontal">
+</div>
+<div>
+    <span class="h-start btn">开始</span>
+    <span class="h-stop btn">暂停</span>
+</div>
+
+<script src="../dist/js/scroxt.js"></script>
+<script>
+    var arr = [];
+    for(var i = 0; i < 5; i++){
+        arr.push('<div><p class="test">第'+i+'条</p><div>你好啊<div>你好啊<div>你好啊</div></div></div></div>');
+    }
+/*—————————————————————分割线——————————垂直—————————————————————*/
+    var scroxtVertical = new scroxt.Vertical({
+        target: ".my-vertical",
+        data: arr,
+        speed: -5
+    });
+
+    //暂停
+    document.querySelector(".v-stop").addEventListener("click",function(){
+        scroxtVertical.stopMove();
+    });
+    //开始
+    document.querySelector(".v-start").addEventListener("click",function(){
+        scroxtVertical.startMove();
+    });
+
+/*—————————————————————分割线——————————水平—————————————————————*/
+    var scroxtHorizontal = new scroxt.Horizontal({
+        target: ".my-horizontal",
+        data: ['第一条','第一条','第一条','第一条'],
+        speed: -5,
+    });
+
+    //暂停
+    document.querySelector(".h-stop").addEventListener("click",function(){
+        scroxtHorizontal.stopMove();
+    });
+    //开始
+    document.querySelector(".h-start").addEventListener("click",function(){
+        scroxtHorizontal.startMove();
+    });
+    
+</script>
+</body>
+</html>

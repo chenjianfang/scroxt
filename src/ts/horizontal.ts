@@ -92,12 +92,11 @@ import addStyleCSS from './internal/addStyleCSS';
         this.createHorizontal();
         //当内容宽度小于盒子宽度
         if(this.divWrapElementWidth/2 < this.targetWidth){
-            removeElement(".scroxt-wrapper");
+            this.emptyElement();
             const ElementArr = this.createElement("scroxt-horizontal");
             this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
-            let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
-            divWrapElement.style.width = this.divWrapElementWidth + 'px';
-            divWrapElement.style.marginLeft = "0px";
+            this.scroxtWrapper.style.width = this.divWrapElementWidth + 'px';
+            this.scroxtWrapper.style.marginLeft = "0px";
             return;
         };
         this.STRun();
@@ -105,17 +104,14 @@ import addStyleCSS from './internal/addStyleCSS';
 
     /**
      * [createHorizontal 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:水平滚动元素集 
      */
     createHorizontal(){
-        removeElement(".scroxt-wrapper");
+        this.emptyElement();
         const ElementArr1 = this.createElement("scroxt-horizontal");
         const ElementArr2 = this.createElement("scroxt-horizontal");
         const ElementArr = ElementArr1.concat(ElementArr2)
         this.divWrapElementWidth = this.computeWidth(ElementArr) + ElementArr.length * this.scroxtGap;
-        let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
-        divWrapElement.style.width = this.divWrapElementWidth + 'px';
-        return divWrapElement;
+        this.scroxtWrapper.style.width = this.divWrapElementWidth + 'px';
     }
 
     /**
@@ -145,8 +141,7 @@ import addStyleCSS from './internal/addStyleCSS';
      * [STMove 单位帧移动]
      */
     STMove(){
-        let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
-        const rectObj = divWrapElement.getBoundingClientRect();
+        const rectObj = this.scroxtWrapper.getBoundingClientRect();
         const divWrapElementHalfPosition = rectObj.left + (rectObj.right-rectObj.left)/2;
 
         const targetRect = this.targetElement.getBoundingClientRect();
@@ -155,22 +150,22 @@ import addStyleCSS from './internal/addStyleCSS';
             const targetLeftPosition = targetRect.left + this.targetElementBorderWidth;
             if(divWrapElementHalfPosition + this.options.speed*0.1 <= targetLeftPosition){
                 this.distance = 0;
-                divWrapElement = this.createHorizontal();
-                divWrapElement.style.left = "0px";
-                divWrapElement.style.marginLeft = "0px";
+                this.createHorizontal();
+                this.scroxtWrapper.style.left = "0px";
+                this.scroxtWrapper.style.marginLeft = "0px";
              }
         }else{
             const targetRightPosition = targetRect.right - this.targetElementBorderWidth*2;
             if(divWrapElementHalfPosition + this.options.speed*0.1 >= targetRightPosition){
                 this.distance = -this.divWrapElementWidth + this.targetWidth;
-                divWrapElement = this.createHorizontal();
-                divWrapElement.style.right = "0px";
-                divWrapElement.style.marginRight = "0px";
+                this.createHorizontal();
+                this.scroxtWrapper.style.right = "0px";
+                this.scroxtWrapper.style.marginRight = "0px";
             }
         }
 
-        divWrapElement.style.transform = `translate3d(${this.distance}px, 0px, 0px)`;
-        divWrapElement.style.webkitTransform = `translate3d(${this.distance}px, 0px, 0px)`;
+        this.scroxtWrapper.style.transform = `translate3d(${this.distance}px, 0px, 0px)`;
+        this.scroxtWrapper.style.webkitTransform = `translate3d(${this.distance}px, 0px, 0px)`;
         this.distance += this.options.speed*0.1;
     }
 

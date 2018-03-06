@@ -17,12 +17,6 @@ class Vertical extends root{
     private targetHeight:number = 0;
 
     /**
-     * [divWrapElement 滚动元素集]
-     * @type {HTMLElement}
-     */
-    private divWrapElement:HTMLElement;
-
-    /**
      * [divWrapElementHeight 元素总高度]
      * @type {number}
      */
@@ -50,7 +44,7 @@ class Vertical extends root{
     startRun(){
     	this.divWrapElementHeight = this.createVertical();
     	if(this.targetHeight > this.divWrapElementHeight/2){
-    		removeElement(".scroxt-wrapper");
+    		this.emptyElement();
     		this.createElement("scroxt-vertical");
     		return;
     	};
@@ -70,13 +64,12 @@ class Vertical extends root{
 
     /**
      * [createVertical 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:垂直滚动元素集 
+     * @returns {HTMLElement} 子元素集总高度
      */
     createVertical(){
-        removeElement(".scroxt-wrapper");
+        this.emptyElement();
         const verticalArr1 = this.createElement("scroxt-vertical");
         const verticalArr2 = this.createElement("scroxt-vertical");
-        this.divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
         const divWrapElementHeight = this.computeHeight(verticalArr1.concat(verticalArr2));
         return divWrapElementHeight;
     }
@@ -120,8 +113,8 @@ class Vertical extends root{
             }
         }
 
-        this.divWrapElement.style.transform = `translate3d(0px, ${this.distance}px, 0px)`;
-        this.divWrapElement.style.webkitTransform = `translate3d(0px, ${this.distance}px, 0px)`;
+        this.scroxtWrapper.style.transform = `translate3d(0px, ${this.distance}px, 0px)`;
+        this.scroxtWrapper.style.webkitTransform = `translate3d(0px, ${this.distance}px, 0px)`;
         
         this.distance += this.options.speed * 0.1;
     }

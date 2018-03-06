@@ -55,9 +55,8 @@ declare class Horizontal extends root {
     init(): void;
     /**
      * [createHorizontal 创建水平滚动元素]
-     * @returns {HTMLElement} divWrapElement:水平滚动元素集
      */
-    createHorizontal(): HTMLElement;
+    createHorizontal(): void;
     /**
      * [computeWidth 计算元素宽度]
      * @param {Array<HTMLElement>} ElementArr [元素集合]

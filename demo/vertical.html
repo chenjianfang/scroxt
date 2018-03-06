@@ -44,14 +44,11 @@
     for(var i = 0; i < 70; i++){
         arr.push('<div><p class="test">第'+i+'条</p><div>你好啊<div>你好啊<div>你好啊</div></div></div></div>');
     }
-
     var scroxtVertical = new scroxt.Vertical({
         target: ".my-ele",
         data: arr,
         speed: -5
     });
-
-
     //暂停
     document.querySelector(".stop").addEventListener("click",function(){
         scroxtVertical.stopMove();

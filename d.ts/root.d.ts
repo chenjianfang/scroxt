@@ -31,6 +31,11 @@ declare class root {
      * @type {HTMLElement}
      */
     protected targetElement: HTMLElement;
+    /**
+     * [scroxtWrapper 当前实例滚动元素容器]
+     * @type {HTMLElement}
+     */
+    protected scroxtWrapper: HTMLElement;
     constructor({target, data, speed}: {
         target: string;
         data: string[];
@@ -46,5 +51,9 @@ declare class root {
      * @return {Array<HTMLElement>} divBox [滚动元素数组]
      */
     createElement(className?: string): HTMLElement[];
+    /**
+     * [emptyElement 删除当前实例所有子元素]
+     */
+    emptyElement(): void;
 }
 export default root;

@@ -40,6 +40,12 @@ class root{
      */
     protected targetElement:HTMLElement;
 
+    /**
+     * [scroxtWrapper 当前实例滚动元素容器]
+     * @type {HTMLElement}
+     */
+    protected scroxtWrapper: HTMLElement;
+
     constructor({target,data,speed}:{
         target:string,
         data:string[],
@@ -70,14 +76,14 @@ class root{
 
         // const scope = ~~(Math.random()*100) + (+new Date());
         const divBox:HTMLElement[] = [];
-        let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
-        
-        if(!divWrapElement){
-            divWrapElement = document.createElement('div');
-            divWrapElement.className = "scroxt-wrapper";
+        // let divWrapElement = <HTMLElement>document.querySelector(".scroxt-wrapper");
+        if(!this.scroxtWrapper){
+            this.scroxtWrapper = document.createElement('div');
+            this.scroxtWrapper.className = "scroxt-wrapper";
             this.targetElement = <HTMLElement>document.querySelector(this.options.target);
-            this.targetElement.appendChild(divWrapElement);
+            this.targetElement.appendChild(this.scroxtWrapper);
         }
+
         for(let i = 0, len = this.options.data.length; i < len; i++){
             const div = document.createElement('div');
             div.className = className;
@@ -85,10 +91,17 @@ class root{
             const text = this.options.data[i];
             div.innerHTML = text;
             // div.appendChild(text);
-            divWrapElement.appendChild(div)
+            this.scroxtWrapper.appendChild(div)
             divBox.push(div);
         }
         return divBox;
+    }
+
+    /**
+     * [emptyElement 删除当前实例所有子元素]
+     */
+    emptyElement(){
+        if(this.scroxtWrapper) this.scroxtWrapper.innerHTML = "";
     }
 
 }
